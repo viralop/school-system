@@ -211,4 +211,16 @@ return [
     'Remove this email?' => 'إزالة هذا البريد؟',
     'Freeze this teacher?' => 'تجميد هذا المعلم؟',
     'Delete this teacher permanently?' => 'حذف هذا المعلم نهائياً؟',
+
+    '3 Levels' => '3 مستويات',
+    'Three-level education system with grade tracking' => 'نظام تعليمي من ثلاث مراحل مع تتبع الدرجات',
+    'Grade Calculation' => 'حساب الدرجات',
+    'Automatic term and level grade calculations' => 'حساب تلقائي للنتائج ومعدلات الفصول',
+    'Secure' => 'آمن',
+    'Secure system for students, teachers, and supervisors' => 'نظام آمن للطلاب والمعلمين والمشرفين',
+    'About the School' => 'عن المدرسة',
+    'Read more' => 'اقرأ المزيد',
+    'Latest Achievements' => 'أحدث الإنجازات',
+    'View all' => 'عرض الكل',
+    'All rights reserved' => 'جميع الحقوق محفوظة',
 ];

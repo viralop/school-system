@@ -211,5 +211,17 @@ return [
     'Delete this term?' => 'Delete this term?',
     'Remove this email?' => 'Remove this email?',
     'Freeze this teacher?' => 'Freeze this teacher?',
-    'Delete this teacher permanently?' => 'Delete this teacher permanently?',
+    'Delete this teacher permanently?' => 'Delete this teacher permanently.',
+
+    '3 Levels' => '3 Levels',
+    'Three-level education system with grade tracking' => 'Three-level education system with grade tracking',
+    'Grade Calculation' => 'Grade Calculation',
+    'Automatic term and level grade calculations' => 'Automatic term and level grade calculations',
+    'Secure' => 'Secure',
+    'Secure system for students, teachers, and supervisors' => 'Secure system for students, teachers, and supervisors',
+    'About the School' => 'About the School',
+    'Read more' => 'Read more',
+    'Latest Achievements' => 'Latest Achievements',
+    'View all' => 'View all',
+    'All rights reserved' => 'All rights reserved',
 ];
