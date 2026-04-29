@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/app.css">
     <style>
-        [dir="rtl"] .rtl\:space-x-reverse { space-x-reverse: 1; }
         .sidebar-link.active { background: rgba(59,130,246,0.15); color: var(--text-primary); font-weight: 500; }
     </style>
 </head>
@@ -16,17 +15,11 @@
         $locale = app()->getLocale();
         $theme = session('theme', 'dark');
         $isRtl = $locale === 'ar';
-        $pendingGradesCount = \App\Models\Grade::where('status', 'pending')->count();
+        $teacher = auth()->user();
 
         $navLinks = [
-            ['route' => 'supervisor.dashboard', 'label' => __('messages.Dashboard'), 'match' => 'supervisor.dashboard', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/>'],
-            ['route' => 'supervisor.teachers.index', 'label' => __('messages.Teachers'), 'match' => 'supervisor.teachers.*', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>'],
-            ['route' => 'supervisor.students.index', 'label' => __('messages.Students'), 'match' => 'supervisor.students.*', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>'],
-            ['route' => 'supervisor.sections.index', 'label' => __('messages.Sections'), 'match' => 'supervisor.sections.*', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"/>'],
-            ['route' => 'supervisor.subjects.index', 'label' => __('messages.Subjects'), 'match' => 'supervisor.subjects.*', 'dot' => $pendingGradesCount > 0, 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>'],
-            ['route' => 'supervisor.terms.index', 'label' => __('messages.Terms'), 'match' => 'supervisor.terms.*', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/>'],
-            ['route' => 'supervisor.results', 'label' => __('messages.Results'), 'match' => 'supervisor.results', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>'],
-            ['route' => 'supervisor.content.edit', 'label' => __('messages.Content'), 'match' => 'supervisor.content.*', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/>'],
+            ['route' => 'teacher.dashboard', 'label' => __('messages.Dashboard'), 'match' => 'teacher.dashboard', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/>'],
+            ['route' => 'teacher.grades', 'label' => __('messages.Grades'), 'match' => 'teacher.grades.*', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>'],
         ];
     @endphp
 
@@ -39,34 +32,40 @@
                     </div>
                     <div>
                         <h1 class="text-lg font-bold text-[var(--text-primary)]">ALWEFAQ</h1>
-                        <span class="text-blue-400 text-xs">{{ __('messages.Supervisor') }}</span>
+                        <span class="text-emerald-400 text-xs">{{ __('messages.Teacher') }}</span>
                     </div>
                 </div>
             </div>
 
-            <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+            <nav class="flex-1 p-3 space-y-1">
                 @foreach($navLinks as $link)
                     @php $isActive = request()->routeIs($link['match']); @endphp
                     <a href="{{ route($link['route']) }}"
                         class="sidebar-link relative flex items-center gap-3 text-sm px-3 py-2.5 rounded-xl transition {{ $isActive ? 'active' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)]' }}">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">{!! $link['icon'] !!}</svg>
                         {{ $link['label'] }}
-                        @if(!empty($link['dot']))
-                            <span class="absolute {{ $isRtl ? 'left-2' : 'right-2' }} top-2 w-2 h-2 bg-red-500 rounded-full"></span>
-                        @endif
                     </a>
                 @endforeach
             </nav>
 
-            <div class="p-3 border-t border-[var(--border-main)] space-y-2">
-                <div class="flex items-center gap-2 px-3">
+            <div class="p-4 border-t border-[var(--border-main)]">
+                <div class="flex items-center gap-3 mb-3 px-1">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-[var(--text-primary)] text-sm font-medium">{{ $teacher->name }}</p>
+                        <p class="text-[var(--text-secondary)] text-xs">{{ $teacher->email }}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 px-1 mb-2">
                     <a href="{{ url()->current() }}?theme={{ $theme === 'dark' ? 'light' : 'dark' }}"
                         class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-lg border border-[var(--border-main)] hover:border-[var(--border-hover)] transition"
                         title="{{ $theme === 'dark' ? 'Light Mode' : 'Dark Mode' }}">
                         @if($theme === 'dark')
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
                         @else
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
                         @endif
                     </a>
                     <a href="{{ url()->current() }}?lang={{ $locale === 'ar' ? 'en' : 'ar' }}"

@@ -43,6 +43,7 @@ class TeacherAuthController extends Controller
 
         session([
             'teacher_signup_email' => $request->email,
+            'teacher_signup_name' => TeacherInvite::where('email', $request->email)->value('name'),
             'teacher_signup_step' => 3,
         ]);
 
@@ -90,6 +91,7 @@ class TeacherAuthController extends Controller
 
         return view('auth.teacher-set-password', [
             'email' => session('teacher_signup_email'),
+            'prefilled_name' => session('teacher_signup_name'),
         ]);
     }
 

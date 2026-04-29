@@ -1,0 +1,97 @@
+:root,
+[data-theme="dark"] {
+    --bg-page: #0c1222;
+    --bg-card: #111827;
+    --bg-card-80: rgba(17, 24, 39, 0.8);
+    --bg-card-90: rgba(15, 23, 42, 0.9);
+    --bg-nav: rgba(17, 24, 39, 0.8);
+    --bg-footer: #0a0f1c;
+    --border-main: rgba(59, 130, 246, 0.1);
+    --border-hover: rgba(59, 130, 246, 0.25);
+    --border-focus: rgba(59, 130, 246, 0.3);
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --text-tertiary: #6b7280;
+    --text-muted: rgba(147, 197, 253, 0.7);
+    --text-label: rgba(191, 219, 254, 0.7);
+    --text-icon: rgba(96, 165, 250, 0.5);
+    --text-placeholder: rgba(147, 197, 253, 0.3);
+    --bg-input: rgba(255, 255, 255, 0.05);
+    --border-input: rgba(59, 130, 246, 0.2);
+    --bg-hover: rgba(255, 255, 255, 0.05);
+    --bg-active: rgba(37, 99, 235, 0.2);
+    --glass-bg: rgba(15, 23, 42, 0.8);
+    --glass-border: rgba(59, 130, 246, 0.15);
+    --glass-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+    --divider-line: rgba(59, 130, 246, 0.15);
+    --divider-bg: rgba(15, 23, 42, 0.8);
+    --divider-text: rgba(147, 197, 253, 0.4);
+    --shadow-card: none;
+    --table-header-bg: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] {
+    --bg-page: #f3f4f6;
+    --bg-card: #ffffff;
+    --bg-card-80: rgba(255, 255, 255, 0.85);
+    --bg-card-90: rgba(255, 255, 255, 0.95);
+    --bg-nav: rgba(255, 255, 255, 0.85);
+    --bg-footer: #e5e7eb;
+    --border-main: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(0, 0, 0, 0.15);
+    --border-focus: rgba(59, 130, 246, 0.3);
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --text-muted: #6b7280;
+    --text-label: #374151;
+    --text-icon: rgba(96, 165, 250, 0.7);
+    --text-placeholder: #9ca3af;
+    --bg-input: #f9fafb;
+    --border-input: #d1d5db;
+    --bg-hover: rgba(0, 0, 0, 0.05);
+    --bg-active: rgba(37, 99, 235, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-gradient: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 50%, #e0e7ff 100%);
+    --divider-line: rgba(0, 0, 0, 0.1);
+    --divider-bg: rgba(243, 244, 246, 0.8);
+    --divider-text: #9ca3af;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --table-header-bg: #f9fafb;
+}
+
+body {
+    background: var(--bg-page);
+}
+
+select option {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    transition: all 0.3s;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}

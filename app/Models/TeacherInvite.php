@@ -9,6 +9,7 @@ class TeacherInvite extends Model
 {
     protected $fillable = [
         'email',
+        'name',
         'invited_by',
         'status',
     ];

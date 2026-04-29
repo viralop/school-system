@@ -21,8 +21,10 @@ class TeacherManagementController extends Controller
     {
         $request->validate([
             'emails' => ['required', 'string'],
+            'name' => ['nullable', 'string', 'max:255'],
         ]);
 
+        $name = $request->input('name');
         $emails = array_filter(
             array_map('trim', explode("\n", $request->emails)),
             fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL),
@@ -40,6 +42,7 @@ class TeacherManagementController extends Controller
 
             TeacherInvite::create([
                 'email' => $email,
+                'name' => $name ?: null,
                 'invited_by' => auth()->id(),
                 'status' => 'pending',
             ]);
