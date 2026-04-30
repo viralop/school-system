@@ -42,8 +42,8 @@
                     <div class="h-2 bg-gradient-to-r from-purple-500 to-purple-600"></div>
                     <div class="p-6 flex items-center justify-between">
                         <div>
-                            <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wider mb-1">{{ __('messages.Subjects') }}</p>
-                            <p class="text-4xl font-bold text-[var(--text-primary)]">{{ $subjectCount }}</p>
+                            <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wider mb-1 font-bold">{{ __('messages.Subjects') }}</p>
+                            <p class="text-4xl font-extrabold text-[var(--text-primary)]">{{ $subjectCount }}</p>
                         </div>
                         <div class="w-14 h-14 rounded-xl bg-purple-500/10 group-hover:bg-purple-500/20 flex items-center justify-center transition">
                             <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
