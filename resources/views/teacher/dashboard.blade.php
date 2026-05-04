@@ -5,7 +5,7 @@
 @section('content')
     @php
         $teacher = auth()->user();
-        $subjects = \App\Models\Subject::where('teacher_id', $teacher->id)->with('level')->get();
+        $subjects = \App\Models\Subject::where('teacher_id', $teacher->id)->with('level.terms')->get();
         $studentCount = \App\Models\Student::whereIn('level_id', $subjects->pluck('level_id')->unique())->count();
         $pendingGrades = \App\Models\Grade::where('entered_by', $teacher->id)->where('status', 'pending')->count();
         $approvedGrades = \App\Models\Grade::where('entered_by', $teacher->id)->where('status', 'approved')->count();
@@ -71,7 +71,13 @@
             <h3 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.My Subjects') }}</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($subjects as $subject)
-                    <div class="bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border-main)] hover:border-[var(--border-hover)] transition shadow-[var(--shadow-card)]">
+                    @php
+                        $openTerms = $subject->level->terms->filter(fn($t) => $t->isOpen());
+                        $url = $openTerms->count() === 1
+                            ? route('teacher.grades.entry', ['subject_id' => $subject->id, 'term_id' => $openTerms->first()->id])
+                            : route('teacher.grades');
+                    @endphp
+                    <a href="{{ $url }}" class="block bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border-main)] hover:border-[var(--border-hover)] transition shadow-[var(--shadow-card)] no-underline">
                         <div class="flex items-center gap-3 mb-2">
                             <div class="w-9 h-9 rounded-lg bg-purple-500/15 flex items-center justify-center">
                                 <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
@@ -79,7 +85,7 @@
                             <p class="text-[var(--text-primary)] font-medium">{{ $subject->localizedName }}</p>
                         </div>
                         <p class="text-[var(--text-secondary)] text-sm ml-0 md:ml-12">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }}</p>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         </div>
