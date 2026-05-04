@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Level extends Model
 {
-    protected $fillable = ['name', 'order'];
+    protected $fillable = ['name', 'name_ar', 'order'];
+
+    public function getLocalizedNameAttribute(): string
+    {
+        return app()->getLocale() === 'ar' && $this->name_ar ? $this->name_ar : $this->name;
+    }
 
     protected function casts(): array
     {

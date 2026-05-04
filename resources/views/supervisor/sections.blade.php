@@ -3,10 +3,10 @@
 @section('title', 'Manage Sections - ALWEFAQ')
 
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         @foreach($levels as $level)
             <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
-                <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ $level->name }}</h2>
+                <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ $level->localizedName }}</h2>
 
                 <form method="POST" action="{{ route('supervisor.sections.store') }}" class="mb-4 flex gap-2">
                     @csrf

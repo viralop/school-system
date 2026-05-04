@@ -20,6 +20,7 @@ class TermManagementController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
         ]);
 
         $levels = Level::orderBy('order')->get();
@@ -28,6 +29,7 @@ class TermManagementController extends Controller
         foreach ($levels as $level) {
             Term::create([
                 'name' => $request->name,
+                'name_ar' => $request->name_ar,
                 'level_id' => $level->id,
                 'order' => $order + 1,
                 'status' => 'open',

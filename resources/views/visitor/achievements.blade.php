@@ -10,12 +10,12 @@
     @endphp
 
     <div class="max-w-4xl mx-auto px-4 py-16">
-        <h1 class="text-4xl font-bold text-white mb-8">@lang('messages.Our Achievements')</h1>
+        <h1 class="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-8">@lang('messages.Our Achievements')</h1>
 
         @if($achievements->count() > 0)
             <div class="space-y-4">
                 @foreach($achievements as $achievement)
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 flex items-start gap-4">
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 flex items-start gap-3 sm:gap-4">
                         <div class="text-3xl flex-shrink-0">{{ $achievement->icon ?? '&#x1f3c6;' }}</div>
                         <div>
                             <h3 class="text-white font-semibold text-lg">{{ $achievement->title($locale) }}</h3>

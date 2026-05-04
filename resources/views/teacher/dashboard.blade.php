@@ -11,12 +11,12 @@
         $approvedGrades = \App\Models\Grade::where('entered_by', $teacher->id)->where('status', 'approved')->count();
     @endphp
 
-    <div class="flex items-center justify-center min-h-[calc(100vh-8rem)]">
+    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-8rem)]">
         <div class="w-full max-w-3xl space-y-6">
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-2 gap-3 md:gap-6">
                 <a href="{{ route('teacher.grades') }}" class="block bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden hover:shadow-lg transition-all duration-300 no-underline group">
                     <div class="h-2 bg-gradient-to-r from-purple-500 to-purple-600"></div>
-                    <div class="p-6 flex items-center justify-between">
+                    <div class="p-4 md:p-6 flex items-center justify-between">
                         <div>
                             <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wider mb-1">{{ __('messages.My Subjects') }}</p>
                             <p class="text-4xl font-bold text-[var(--text-primary)]">{{ $subjects->count() }}</p>
@@ -28,7 +28,7 @@
                 </a>
                 <a href="{{ route('teacher.grades') }}" class="block bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden hover:shadow-lg transition-all duration-300 no-underline group">
                     <div class="h-2 bg-gradient-to-r from-blue-500 to-blue-600"></div>
-                    <div class="p-6 flex items-center justify-between">
+                    <div class="p-4 md:p-6 flex items-center justify-between">
                         <div>
                             <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wider mb-1">{{ __('messages.Students') }}</p>
                             <p class="text-4xl font-bold text-[var(--text-primary)]">{{ $studentCount }}</p>
@@ -40,7 +40,7 @@
                 </a>
                 <a href="{{ route('teacher.grades') }}" class="block bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden hover:shadow-lg transition-all duration-300 no-underline group">
                     <div class="h-2 bg-gradient-to-r from-yellow-500 to-amber-600"></div>
-                    <div class="p-6 flex items-center justify-between">
+                    <div class="p-4 md:p-6 flex items-center justify-between">
                         <div>
                             <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wider mb-1">{{ __('messages.Pending Grades') }}</p>
                             <p class="text-4xl font-bold text-yellow-400">{{ $pendingGrades }}</p>
@@ -52,7 +52,7 @@
                 </a>
                 <a href="{{ route('teacher.grades') }}" class="block bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden hover:shadow-lg transition-all duration-300 no-underline group">
                     <div class="h-2 bg-gradient-to-r from-emerald-500 to-emerald-600"></div>
-                    <div class="p-6 flex items-center justify-between">
+                    <div class="p-4 md:p-6 flex items-center justify-between">
                         <div>
                             <p class="text-[var(--text-secondary)] text-xs uppercase tracking-wider mb-1">{{ __('messages.Approve') }}</p>
                             <p class="text-4xl font-bold text-emerald-400">{{ $approvedGrades }}</p>
@@ -67,7 +67,7 @@
     </div>
 
     @if($subjects->count() > 0)
-        <div class="mt-8">
+        <div class="mt-4 md:mt-8">
             <h3 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.My Subjects') }}</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($subjects as $subject)
@@ -76,9 +76,9 @@
                             <div class="w-9 h-9 rounded-lg bg-purple-500/15 flex items-center justify-center">
                                 <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
                             </div>
-                            <p class="text-[var(--text-primary)] font-medium">{{ $subject->name }}</p>
+                            <p class="text-[var(--text-primary)] font-medium">{{ $subject->localizedName }}</p>
                         </div>
-                        <p class="text-[var(--text-secondary)] text-sm ml-12">{{ $subject->level->name }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }}</p>
+                        <p class="text-[var(--text-secondary)] text-sm ml-0 md:ml-12">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }}</p>
                     </div>
                 @endforeach
             </div>

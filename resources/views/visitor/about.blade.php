@@ -13,10 +13,10 @@
     @endphp
 
     <div class="max-w-4xl mx-auto px-4 py-16">
-        <h1 class="text-4xl font-bold text-white mb-8">@lang('messages.About Our School')</h1>
+        <h1 class="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-8">@lang('messages.About Our School')</h1>
 
-        <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/20 mb-8">
-            <p class="text-green-300/80 leading-relaxed text-lg">{{ $about }}</p>
+        <div class="bg-white/10 backdrop-blur-md p-6 md:p-8 rounded-xl border border-white/20 mb-8">
+            <p class="text-green-300/80 leading-relaxed text-base md:text-lg">{{ $about }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

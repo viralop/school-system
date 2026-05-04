@@ -3,8 +3,8 @@
 @section('title', 'Subjects & Grades - ALWEFAQ')
 
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-1 space-y-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        <div class="lg:col-span-1 space-y-4 md:space-y-6">
             <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
                 <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.Add Subject') }}</h2>
                 <form method="POST" action="{{ route('supervisor.subjects.store') }}" class="space-y-3">
@@ -14,7 +14,7 @@
                         <select name="level_id"
                             class="w-full bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                             @foreach($levels as $level)
-                                <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                <option value="{{ $level->id }}">{{ $level->localizedName }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -22,6 +22,11 @@
                         <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Subject Name') }}</label>
                         <input type="text" name="name" placeholder="e.g. Math"
                             class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
+                    </div>
+                    <div>
+                        <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Subject Name') }} ({{ __('messages.Arabic') }})</label>
+                        <input type="text" name="name_ar" placeholder="مثال: الرياضيات"
+                            class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40">
                     </div>
                     <div>
                         <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Max Score') }}</label>
@@ -52,7 +57,7 @@
                         <select name="level_id"
                             class="w-full bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                             @foreach($levels as $level)
-                                <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                <option value="{{ $level->id }}">{{ $level->localizedName }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -66,12 +71,12 @@
             </div>
         </div>
 
-        <div class="lg:col-span-2">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 overflow-hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 @foreach($levels as $level)
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <h2 class="text-lg font-semibold text-[var(--text-primary)]">{{ $level->name }}</h2>
+                            <h2 class="text-lg font-semibold text-[var(--text-primary)]">{{ $level->localizedName }}</h2>
                             <span class="text-[var(--text-secondary)] text-xs">{{ $level->subjects->count() }} {{ __('messages.subjects') }}</span>
                         </div>
 
@@ -88,7 +93,7 @@
                                             @endif
                                             <div class="flex items-center justify-between">
                                                 <div>
-                                                    <p class="text-[var(--text-primary)] text-sm font-medium group-hover:text-blue-400 transition">{{ $subject->name }}</p>
+                                                    <p class="text-[var(--text-primary)] text-sm font-medium group-hover:text-blue-400 transition">{{ $subject->localizedName }}</p>
                                                     <p class="text-[var(--text-secondary)] text-xs">{{ __('messages.Max Score') }}: {{ $subject->max_score }} | {{ $subject->teacher ? $subject->teacher->name : __('messages.No teacher') }}</p>
                                                 </div>
                                                 <div class="flex items-center gap-2">
@@ -102,7 +107,7 @@
                                             </div>
                                         </a>
                                         <div class="flex gap-2 px-4 pb-2">
-                                            <button type="button" onclick="openEditSubjectModal({{ $subject->id }}, '{{ addslashes($subject->name) }}', {{ $subject->max_score }}, {{ $subject->teacher_id ?? 'null' }})"
+                                            <button type="button" onclick="openEditSubjectModal({{ $subject->id }}, '{{ addslashes($subject->name) }}', {{ $subject->max_score }}, {{ $subject->teacher_id ?? 'null' }}, '{{ addslashes($subject->name_ar ?? '') }}')"
                                                 class="text-blue-400 hover:text-blue-300 text-xs px-2 py-1 bg-blue-500/10 rounded transition">{{ __('messages.Edit') }}</button>
                                             <form method="POST" action="{{ route('supervisor.subjects.destroy', $subject) }}" class="inline">
                                                 @csrf @method('DELETE')
@@ -125,7 +130,7 @@
     </div>
 
     <div id="edit-subject-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-        <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 w-full max-w-md">
+        <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 w-full max-w-md mx-4">
             <h3 class="text-[var(--text-primary)] font-semibold mb-4">{{ __('messages.Edit Subject') }}</h3>
             <form method="POST" id="edit-subject-form">
                 @csrf @method('PUT')
@@ -133,6 +138,11 @@
                     <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Subject Name') }}</label>
                     <input type="text" name="name" id="edit-subject-name"
                         class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Subject Name') }} ({{ __('messages.Arabic') }})</label>
+                    <input type="text" name="name_ar" id="edit-subject-name-ar"
+                        class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40">
                 </div>
                 <div class="mb-3">
                     <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Max Score') }}</label>
@@ -160,8 +170,9 @@
     </div>
 
     <script>
-        function openEditSubjectModal(id, name, maxScore, teacherId) {
+        function openEditSubjectModal(id, name, maxScore, teacherId, nameAr) {
             document.getElementById('edit-subject-name').value = name;
+            document.getElementById('edit-subject-name-ar').value = nameAr || '';
             document.getElementById('edit-subject-max').value = maxScore;
             document.getElementById('edit-subject-teacher').value = teacherId || '';
             document.getElementById('edit-subject-form').action = '{{ url("/supervisor/subjects") }}/' + id;

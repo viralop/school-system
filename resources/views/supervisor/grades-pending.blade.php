@@ -3,13 +3,13 @@
 @section('title', 'Pending Grades - ALWEFAQ')
 
 @section('content')
-    <div class="flex items-center justify-between mb-6">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 md:mb-6">
         <h2 class="text-2xl font-bold text-[var(--text-primary)]">{{ __('messages.Pending Grades') }}</h2>
         <form method="GET" class="flex gap-2">
             <select name="level_id" class="bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-1.5 text-sm outline-none">
                 <option value="">{{ __('messages.All Levels') }}</option>
                 @foreach($levels as $level)
-                    <option value="{{ $level->id }}" {{ request('level_id') == (string)$level->id ? 'selected' : '' }}>{{ $level->name }}</option>
+                    <option value="{{ $level->id }}" {{ request('level_id') == (string)$level->id ? 'selected' : '' }}>{{ $level->localizedName }}</option>
                 @endforeach
             </select>
             <button type="submit" class="bg-[var(--bg-input)] text-[var(--text-primary)] px-3 py-1.5 rounded-lg text-sm border border-[var(--border-input)] hover:bg-[var(--bg-hover)] transition">{{ __('messages.Filter') }}</button>
@@ -26,7 +26,7 @@
                 </button>
             </div>
 
-            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden">
+            <div class="mobile-scroll-table bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)]">
                 <table class="w-full">
                     <thead>
                         <tr class="bg-[var(--table-header-bg)] text-[var(--text-secondary)] text-sm">
@@ -48,9 +48,9 @@
                                     <input type="checkbox" name="grade_ids[]" value="{{ $grade->id }}" class="grade-checkbox">
                                 </td>
                                 <td class="px-4 py-3 text-[var(--text-primary)] text-sm">{{ $grade->student->name }} <span class="text-[var(--text-secondary)]">({{ $grade->student->student_number }})</span></td>
-                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->student->level->name }}</td>
-                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->subject->name }}</td>
-                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->term->name }}</td>
+                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->student->level->localizedName }}</td>
+                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->subject->localizedName }}</td>
+                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->term->localizedName }}</td>
                                 <td class="px-4 py-3 text-[var(--text-primary)] text-sm text-center font-medium">{{ $grade->score }}</td>
                                 <td class="px-4 py-3 text-[var(--text-secondary)] text-sm text-center">{{ $grade->subject->max_score }}</td>
                                 <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->enteredBy->name }}</td>

@@ -8,14 +8,14 @@
         <form method="GET" class="flex gap-2">
             <select name="level_id" class="bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-1.5 text-sm outline-none" onchange="this.form.submit()">
                 @foreach($levels as $level)
-                    <option value="{{ $level->id }}" {{ $selectedLevel?->id == $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
+                    <option value="{{ $level->id }}" {{ $selectedLevel?->id == $level->id ? 'selected' : '' }}>{{ $level->localizedName }}</option>
                 @endforeach
             </select>
         </form>
     </div>
 
     @if($selectedLevel && count($results) > 0)
-        <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden">
+        <div class="mobile-scroll-table bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)]">
             <table class="w-full">
                 <thead>
                     <tr class="bg-[var(--table-header-bg)] text-[var(--text-secondary)] text-sm">
@@ -24,7 +24,7 @@
                         <th class="px-4 py-3 text-start">{{ __('messages.Section') }}</th>
                         @if($selectedLevel->terms->count() > 0)
                             @foreach($selectedLevel->terms->sortBy('order') as $term)
-                                <th class="px-4 py-3 text-center">{{ $term->name }}</th>
+                                <th class="px-4 py-3 text-center">{{ $term->localizedName }}</th>
                             @endforeach
                         @endif
                         <th class="px-4 py-3 text-center">{{ __('messages.Level Grade') }}</th>

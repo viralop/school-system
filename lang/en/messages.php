@@ -224,4 +224,5 @@ return [
     'Latest Achievements' => 'Latest Achievements',
     'View all' => 'View all',
     'All rights reserved' => 'All rights reserved',
+    'Arabic' => 'Arabic',
 ];

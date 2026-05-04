@@ -13,19 +13,19 @@
                         <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
                     </div>
                     <div>
-                        <h3 class="text-[var(--text-primary)] font-semibold">{{ $subject->name }}</h3>
-                        <p class="text-[var(--text-secondary)] text-sm">{{ $subject->level->name }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }}</p>
+                        <h3 class="text-[var(--text-primary)] font-semibold">{{ $subject->localizedName }}</h3>
+                        <p class="text-[var(--text-secondary)] text-sm">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }}</p>
                     </div>
                 </div>
 
-                <form method="GET" action="{{ route('teacher.grades.entry') }}" class="flex gap-3 items-end">
+                <form method="GET" action="{{ route('teacher.grades.entry') }}" class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-end">
                     <div>
                         <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Select Term') }}</label>
                         <select name="term_id" class="bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                             <option value="">{{ __('messages.Choose term...') }}</option>
                             @foreach($subject->level->terms as $term)
                                 <option value="{{ $term->id }}" class="{{ $term->isOpen() ? '' : 'text-gray-500' }}">
-                                    {{ $term->name }} {{ $term->isOpen() ? '(Open)' : '(' . ucfirst($term->status) . ')' }}
+                                    {{ $term->localizedName }} {{ $term->isOpen() ? '(Open)' : '(' . ucfirst($term->status) . ')' }}
                                 </option>
                             @endforeach
                         </select>

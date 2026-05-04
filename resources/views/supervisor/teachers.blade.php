@@ -3,7 +3,7 @@
 @section('title', 'Manage Teachers - ALWEFAQ')
 
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
         <div>
             <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6">
                 <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.Add Teacher Emails') }}</h2>

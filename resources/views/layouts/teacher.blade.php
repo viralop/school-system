@@ -2,12 +2,19 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" data-theme="{{ session('theme', 'dark') }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0f">
     <title>@yield('title', 'ALWEFAQ')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/app.css">
     <style>
         .sidebar-link.active { background: rgba(59,130,246,0.15); color: var(--text-primary); font-weight: 500; }
+        .sidebar-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
+        @media (max-width: 767px) {
+            #sidebar { width: 0; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+            #sidebar.active { width: 17rem; }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -23,24 +30,31 @@
         ];
     @endphp
 
-    <div class="flex min-h-screen">
-        <aside class="w-64 bg-[var(--bg-card)] border-{{ $isRtl ? 'l' : 'r' }} border-[var(--border-main)] flex flex-col fixed top-0 {{ $isRtl ? 'right-0' : 'left-0' }} h-full z-50">
+    <div class="sidebar-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <div class="flex min-h-screen overflow-x-hidden">
+        <aside class="sidebar-panel w-64 bg-[var(--bg-card)] border-{{ $isRtl ? 'l' : 'r' }} border-[var(--border-main)] flex flex-col fixed top-0 {{ $isRtl ? 'right-0' : 'left-0' }} h-full z-50 md:w-64 w-0 overflow-hidden" id="sidebar">
             <div class="p-5 border-b border-[var(--border-main)]">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-md shadow-blue-500/20">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-md shadow-blue-500/20">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold text-[var(--text-primary)]">ALWEFAQ</h1>
+                            <span class="text-emerald-400 text-xs">{{ __('messages.Teacher') }}</span>
+                        </div>
                     </div>
-                    <div>
-                        <h1 class="text-lg font-bold text-[var(--text-primary)]">ALWEFAQ</h1>
-                        <span class="text-emerald-400 text-xs">{{ __('messages.Teacher') }}</span>
-                    </div>
+                    <button onclick="closeSidebar()" class="md:hidden p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-hover)] transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
                 </div>
             </div>
 
             <nav class="flex-1 p-3 space-y-1">
                 @foreach($navLinks as $link)
                     @php $isActive = request()->routeIs($link['match']); @endphp
-                    <a href="{{ route($link['route']) }}"
+                    <a href="{{ route($link['route']) }}" onclick="closeSidebar()"
                         class="sidebar-link relative flex items-center gap-3 text-sm px-3 py-2.5 rounded-xl transition {{ $isActive ? 'active' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)]' }}">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">{!! $link['icon'] !!}</svg>
                         {{ $link['label'] }}
@@ -53,9 +67,9 @@
                     <div class="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center">
                         <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
                     </div>
-                    <div>
-                        <p class="text-[var(--text-primary)] text-sm font-medium">{{ $teacher->name }}</p>
-                        <p class="text-[var(--text-secondary)] text-xs">{{ $teacher->email }}</p>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-[var(--text-primary)] text-sm font-medium truncate">{{ $teacher->name }}</p>
+                        <p class="text-[var(--text-secondary)] text-xs truncate">{{ $teacher->email }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2 px-1 mb-2">
@@ -83,16 +97,31 @@
             </div>
         </aside>
 
-        <main class="flex-1 {{ $isRtl ? 'mr-64' : 'ml-64' }}">
-            <div class="p-8">
+        <main class="flex-1 min-w-0 {{ $isRtl ? 'md:mr-64' : 'md:ml-64' }}">
+            <header class="md:hidden sticky top-0 z-30 bg-[var(--bg-card)] border-b border-[var(--border-main)] px-4 py-3 flex items-center justify-between">
+                <button onclick="openSidebar()" class="p-2 -ml-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-hover)] transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                </button>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+                    </div>
+                    <span class="text-sm font-bold text-[var(--text-primary)]">ALWEFAQ</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="{{ url()->current() }}?lang={{ $locale === 'ar' ? 'en' : 'ar' }}" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] text-xs px-2 py-1 rounded-lg border border-[var(--border-main)] transition font-medium">{{ $locale === 'ar' ? 'EN' : 'عربي' }}</a>
+                </div>
+            </header>
+
+            <div class="p-4 md:p-8">
                 @if(session('success'))
-                    <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl mb-6 flex items-center gap-2">
+                    <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl mb-4 md:mb-6 flex items-center gap-2 text-sm">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
                         {{ session('success') }}
                     </div>
                 @endif
                 @if($errors->any())
-                    <div class="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-6 flex items-center gap-2">
+                    <div class="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-4 md:mb-6 flex items-center gap-2 text-sm">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
                         {{ $errors->first() }}
                     </div>
@@ -103,6 +132,18 @@
         </main>
     </div>
 
+    <script>
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('active');
+            document.getElementById('sidebar-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
     @stack('scripts')
 </body>
 </html>

@@ -3,7 +3,7 @@
 @section('title', 'Manage Students - ALWEFAQ')
 
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
         <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
             <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.Add Student') }}</h2>
             <form method="POST" action="{{ route('supervisor.students.store') }}">
@@ -29,7 +29,7 @@
                         required>
                         <option value="">{{ __('messages.Select Level') }}</option>
                         @foreach($levels as $level)
-                            <option value="{{ $level->id }}">{{ $level->name }}</option>
+                            <option value="{{ $level->id }}">{{ $level->localizedName }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -49,11 +49,11 @@
             </form>
         </div>
 
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 overflow-hidden">
             <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
                 <div class="mb-4">
                     <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-3">{{ __('messages.Students') }}</h2>
-                    <form method="GET" action="{{ route('supervisor.students.index') }}" id="filter-form" class="flex flex-wrap gap-2 items-center">
+                    <form method="GET" action="{{ route('supervisor.students.index') }}" id="filter-form" class="flex flex-wrap gap-2 items-center text-sm">
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
                                 <svg class="w-4 h-4 text-[var(--text-secondary)]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
@@ -67,7 +67,7 @@
                             onchange="document.getElementById('filter-form').submit()">
                             <option value="">{{ __('messages.All Levels') }}</option>
                             @foreach($levels as $level)
-                                <option value="{{ $level->id }}" {{ request('level_id') == (string) $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
+                                <option value="{{ $level->id }}" {{ request('level_id') == (string) $level->id ? 'selected' : '' }}>{{ $level->localizedName }}</option>
                             @endforeach
                         </select>
                         @php $filterSections = request('level_id') ? \App\Models\Section::where('level_id', request('level_id'))->orderBy('name')->get() : collect(); @endphp
@@ -91,7 +91,7 @@
                 </div>
 
                 @if($students->count() > 0)
-                    <div class="overflow-x-auto">
+                    <div class="mobile-scroll-table overflow-x-auto">
                         <table class="w-full">
                             <thead>
                                 <tr class="bg-[var(--table-header-bg)] text-[var(--text-secondary)] text-sm border-b border-[var(--border-main)]">
@@ -109,7 +109,7 @@
                                     <tr class="border-b border-[var(--border-main)]">
                                         <td class="py-3 text-[var(--text-primary)] text-sm">{{ $student->student_number }}</td>
                                         <td class="py-3 text-[var(--text-primary)] text-sm">{{ $student->name }}</td>
-                                        <td class="py-3 text-[var(--text-secondary)] text-sm">{{ $student->level->name }}</td>
+                                        <td class="py-3 text-[var(--text-secondary)] text-sm">{{ $student->level->localizedName }}</td>
                                         <td class="py-3 text-[var(--text-secondary)] text-sm">{{ $student->section ? __('messages.Section') . ' ' . $student->section->name : __('messages.No section') }}</td>
                                         <td class="py-3 text-[var(--text-secondary)] text-sm">{{ $student->parent_phone ?? '-' }}</td>
                                         <td class="py-3">
@@ -147,7 +147,7 @@
                         </table>
                     </div>
 
-                    <div class="mt-4">
+                    <div class="mt-4 overflow-x-auto">
                         {{ $students->withQueryString()->links() }}
                     </div>
                 @else
@@ -179,7 +179,7 @@
                         class="w-full bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none" required>
                         <option value="">{{ __('messages.Select Level') }}</option>
                         @foreach($levels as $level)
-                            <option value="{{ $level->id }}">{{ $level->name }}</option>
+                            <option value="{{ $level->id }}">{{ $level->localizedName }}</option>
                         @endforeach
                     </select>
                 </div>

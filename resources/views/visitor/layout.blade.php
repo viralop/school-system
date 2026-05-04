@@ -20,21 +20,24 @@
 </head>
 <body class="min-h-screen flex flex-col">
     <nav id="visitor-nav" class="sticky top-0 z-50" style="transition: background-color 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-8">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4 md:gap-8">
                 <a href="{{ route('home') }}" class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-md shadow-blue-500/20">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
                     </div>
                     <span class="text-xl font-bold text-white">{{ $schoolName }}</span>
                 </a>
-                <div class="flex items-center gap-5">
+                <div class="hidden md:flex items-center gap-5">
                     <a href="{{ route('home') }}" class="text-white/70 hover:text-white text-sm transition @yield('nav-home-active')">@lang('messages.Home')</a>
                     <a href="{{ route('about') }}" class="text-white/70 hover:text-white text-sm transition @yield('nav-about-active')">@lang('messages.About')</a>
                     <a href="{{ route('achievements') }}" class="text-white/70 hover:text-white text-sm transition @yield('nav-achievements-active')">@lang('messages.Achievements')</a>
                 </div>
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 text-white/70 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                </button>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 md:gap-4">
                 <a href="{{ route('login') }}" class="text-sm text-blue-300 hover:text-blue-200 flex items-center gap-1.5 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
                     @lang('messages.Login')
@@ -50,6 +53,11 @@
                 </a>
                 <a href="{{ url()->current() }}?lang={{ $otherLocale }}" class="text-blue-300 hover:text-blue-200 text-sm font-medium bg-white/10 px-3 py-1 rounded-lg transition">{{ $otherLabel }}</a>
             </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 px-4 py-3 space-y-2">
+            <a href="{{ route('home') }}" class="block text-white/70 hover:text-white text-sm py-2">@lang('messages.Home')</a>
+            <a href="{{ route('about') }}" class="block text-white/70 hover:text-white text-sm py-2">@lang('messages.About')</a>
+            <a href="{{ route('achievements') }}" class="block text-white/70 hover:text-white text-sm py-2">@lang('messages.Achievements')</a>
         </div>
     </nav>
 

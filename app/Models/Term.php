@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Term extends Model
 {
-    protected $fillable = ['name', 'level_id', 'order', 'status'];
+    protected $fillable = ['name', 'name_ar', 'level_id', 'order', 'status'];
+
+    public function getLocalizedNameAttribute(): string
+    {
+        return app()->getLocale() === 'ar' && $this->name_ar ? $this->name_ar : $this->name;
+    }
 
     protected function casts(): array
     {

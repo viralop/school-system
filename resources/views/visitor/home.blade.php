@@ -11,30 +11,30 @@
         $schoolName = \App\Models\SiteSetting::get('school_name_' . $locale, 'ALWEFAQ');
     @endphp
 
-    <div class="max-w-7xl mx-auto px-4 py-16">
+    <div class="max-w-7xl mx-auto px-4 py-8 md:py-16">
         <div class="text-center mb-16">
-            <h1 class="text-5xl font-bold text-white mb-4">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
                 @lang('messages.Welcome to') {{ $schoolName }}
             </h1>
-            <p class="text-green-300 text-xl">@lang('messages.School Management System')</p>
+            <p class="text-green-300 text-base sm:text-xl">@lang('messages.School Management System')</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/20 text-center">
+            <div class="bg-white/10 backdrop-blur-md p-6 md:p-8 rounded-xl border border-white/20 text-center">
                 <div class="mx-auto mb-4 w-14 h-14 rounded-full bg-blue-500/20 flex items-center justify-center">
                     <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
                 </div>
                 <h3 class="text-white font-semibold text-lg mb-2">@lang('messages.3 Levels')</h3>
                 <p class="text-green-300/80 text-sm">@lang('messages.Three-level education system with grade tracking')</p>
             </div>
-            <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/20 text-center">
+            <div class="bg-white/10 backdrop-blur-md p-6 md:p-8 rounded-xl border border-white/20 text-center">
                 <div class="mx-auto mb-4 w-14 h-14 rounded-full bg-green-500/20 flex items-center justify-center">
                     <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
                 </div>
                 <h3 class="text-white font-semibold text-lg mb-2">@lang('messages.Grade Calculation')</h3>
                 <p class="text-green-300/80 text-sm">@lang('messages.Automatic term and level grade calculations')</p>
             </div>
-            <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/20 text-center">
+            <div class="bg-white/10 backdrop-blur-md p-6 md:p-8 rounded-xl border border-white/20 text-center">
                 <div class="mx-auto mb-4 w-14 h-14 rounded-full bg-yellow-500/20 flex items-center justify-center">
                     <svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
                 </div>
@@ -45,7 +45,7 @@
 
         @if($about)
             <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/20 mb-16">
-                <h2 class="text-2xl font-bold text-white mb-4">@lang('messages.About the School')</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-4">@lang('messages.About the School')</h2>
                 <p class="text-green-300/80 leading-relaxed">{{ $about }}</p>
                 <a href="{{ route('about') }}" class="inline-block mt-4 text-blue-400 hover:text-blue-300 text-sm">@lang('messages.Read more') &rarr;</a>
             </div>

@@ -5,7 +5,7 @@
 @section('content')
     <div class="mb-6">
         <h2 class="text-2xl font-bold text-[var(--text-primary)]">{{ __('messages.Enter Grades') }}</h2>
-        <p class="text-[var(--text-secondary)] mt-1">{{ $subject->name }} - {{ $term->name }} - {{ $subject->level->name }}</p>
+        <p class="text-[var(--text-secondary)] mt-1">{{ $subject->localizedName }} - {{ $term->localizedName }} - {{ $subject->level->localizedName }}</p>
         <p class="text-amber-400 text-sm mt-1">{{ __('messages.Max score per student:') }} {{ $subject->max_score }}</p>
     </div>
 
@@ -14,7 +14,7 @@
         <input type="hidden" name="subject_id" value="{{ $subject->id }}">
         <input type="hidden" name="term_id" value="{{ $term->id }}">
 
-        <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden shadow-[var(--shadow-card)]">
+        <div class="mobile-scroll-table bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] shadow-[var(--shadow-card)]">
             <table class="w-full">
                 <thead>
                     <tr class="bg-[var(--table-header-bg)] text-[var(--text-secondary)] text-sm">

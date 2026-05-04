@@ -26,6 +26,7 @@ class SubjectManagementController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'max_score' => ['required', 'numeric', 'min:1', 'max:9999'],
             'level_id' => ['required', 'exists:levels,id'],
             'teacher_id' => ['nullable', 'exists:users,id'],
@@ -40,6 +41,7 @@ class SubjectManagementController extends Controller
 
         Subject::create([
             'name' => $request->name,
+            'name_ar' => $request->name_ar,
             'max_score' => $request->max_score,
             'level_id' => $request->level_id,
             'teacher_id' => $request->teacher_id ?: null,
@@ -138,6 +140,7 @@ class SubjectManagementController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'max_score' => ['required', 'numeric', 'min:1', 'max:9999'],
             'teacher_id' => ['nullable', 'exists:users,id'],
         ]);
@@ -151,6 +154,7 @@ class SubjectManagementController extends Controller
 
         $subject->update([
             'name' => $request->name,
+            'name_ar' => $request->name_ar,
             'max_score' => $request->max_score,
             'teacher_id' => $request->teacher_id ?: null,
         ]);

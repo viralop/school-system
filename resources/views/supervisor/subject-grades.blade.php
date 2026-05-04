@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', '{{ $subject->name }} Grades - ALWEFAQ')
+@section('title', '{{ $subject->localizedName }} Grades - ALWEFAQ')
 
 @section('content')
     <div class="mb-6">
@@ -13,8 +13,8 @@
     <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-xl font-bold text-[var(--text-primary)]">{{ $subject->name }}</h2>
-                <p class="text-[var(--text-secondary)] text-sm">{{ $subject->level->name }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }} | {{ __('messages.Teacher') }}: {{ $subject->teacher ? $subject->teacher->name : 'None' }}</p>
+                <h2 class="text-xl font-bold text-[var(--text-primary)]">{{ $subject->localizedName }}</h2>
+                <p class="text-[var(--text-secondary)] text-sm">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }} | {{ __('messages.Teacher') }}: {{ $subject->teacher ? $subject->teacher->name : 'None' }}</p>
             </div>
             <div class="flex items-center gap-3">
                 @php $pendingCount = $subject->grades()->where('status', 'pending')->count(); @endphp
@@ -33,7 +33,7 @@
     <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6">
         <h3 class="text-[var(--text-primary)] font-semibold mb-3">{{ __('messages.Import Grades from File') }}</h3>
         <p class="text-[var(--text-secondary)] text-xs mb-3">CSV format: <code class="bg-[var(--bg-input)] px-1.5 py-0.5 rounded">student_number, score</code></p>
-        <form method="POST" action="{{ route('supervisor.grades.import') }}" enctype="multipart/form-data" class="flex gap-3 items-end flex-wrap">
+        <form method="POST" action="{{ route('supervisor.grades.import') }}" enctype="multipart/form-data" class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-end">
             @csrf
             <input type="hidden" name="subject_id" value="{{ $subject->id }}">
             <div class="min-w-[150px]">
@@ -41,7 +41,7 @@
                 <select name="term_id"
                     class="bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                     @foreach($terms as $term)
-                        <option value="{{ $term->id }}" {{ !$term->isOpen() ? 'disabled' : '' }}>{{ $term->name }} {{ $term->isOpen() ? '(Open)' : '(Closed)' }}</option>
+                        <option value="{{ $term->id }}" {{ !$term->isOpen() ? 'disabled' : '' }}>{{ $term->localizedName }} {{ $term->isOpen() ? '(Open)' : '(Closed)' }}</option>
                     @endforeach
                 </select>
             </div>
@@ -54,14 +54,14 @@
         </form>
     </div>
 
-    <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
+    <div class="mobile-scroll-table bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
         @if($terms->count() > 0)
             <div class="flex gap-2 mb-6">
                 @foreach($terms as $term)
                     <button type="button" onclick="showTerm('{{ $term->id }}')"
                         class="term-tab px-4 py-2 rounded-lg text-sm transition {{ $loop->first ? 'bg-blue-600/20 text-blue-400 font-medium' : 'bg-[var(--bg-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]' }}"
                         data-term="{{ $term->id }}">
-                        {{ $term->name }}
+                        {{ $term->localizedName }}
                     </button>
                 @endforeach
             </div>

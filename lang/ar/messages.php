@@ -223,4 +223,5 @@ return [
     'Latest Achievements' => 'أحدث الإنجازات',
     'View all' => 'عرض الكل',
     'All rights reserved' => 'جميع الحقوق محفوظة',
+    'Arabic' => 'عربي',
 ];

@@ -3,14 +3,14 @@
 @section('title', 'Site Content - ALWEFAQ')
 
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
         <div>
             <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6">
                 <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.School Information') }}</h2>
                 <form method="POST" action="{{ route('supervisor.content.settings') }}">
                     @csrf @method('PUT')
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
                         <div>
                             <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.School Name (English)') }}</label>
                             <input type="text" name="school_name_en" value="{{ $settings['school_name_en'] }}"
@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
                         <div>
                             <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.About (English)') }}</label>
                             <textarea name="about_en" rows="4"
@@ -36,7 +36,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
                         <div>
                             <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Contact Email') }}</label>
                             <input type="email" name="contact_email" value="{{ $settings['contact_email'] }}"
@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
                         <div>
                             <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Address (English)') }}</label>
                             <input type="text" name="address_en" value="{{ $settings['address_en'] }}"
@@ -72,7 +72,7 @@
                 <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.Add Achievement') }}</h2>
                 <form method="POST" action="{{ route('supervisor.content.achievements.store') }}" class="mb-6">
                     @csrf
-                    <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                         <div>
                             <label class="block text-[var(--text-secondary)] text-xs mb-1">{{ __('messages.Title (English)') }}</label>
                             <input type="text" name="title_en" required
@@ -84,7 +84,7 @@
                                 class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none">
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                         <div>
                             <label class="block text-[var(--text-secondary)] text-xs mb-1">{{ __('messages.Description (English)') }}</label>
                             <textarea name="description_en" rows="2"

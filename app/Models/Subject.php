@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subject extends Model
 {
-    protected $fillable = ['name', 'max_score', 'level_id', 'teacher_id'];
+    protected $fillable = ['name', 'name_ar', 'max_score', 'level_id', 'teacher_id'];
+
+    public function getLocalizedNameAttribute(): string
+    {
+        return app()->getLocale() === 'ar' && $this->name_ar ? $this->name_ar : $this->name;
+    }
 
     protected function casts(): array
     {
