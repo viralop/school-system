@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', 'Results - ALWEFAQ')
+@section('title', 'Results - خولة بنت الأزور')
 
 @section('content')
     <div class="flex items-center justify-between mb-6">

@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', '{{ $subject->localizedName }} Grades - ALWEFAQ')
+@section('title', '{{ $subject->localizedName }} Grades - خولة بنت الأزور')
 
 @section('content')
     <div class="mb-6">
@@ -14,7 +14,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-xl font-bold text-[var(--text-primary)]">{{ $subject->localizedName }}</h2>
-                <p class="text-[var(--text-secondary)] text-sm">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }} | {{ __('messages.Teacher') }}: {{ $subject->teacher ? $subject->teacher->name : 'None' }}</p>
+                <p class="text-[var(--text-secondary)] text-sm">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->default_max_degree }} | {{ __('messages.Teacher') }}: {{ $subject->teacher ? $subject->teacher->name : 'None' }}</p>
             </div>
             <div class="flex items-center gap-3">
                 @php $pendingCount = $subject->grades()->where('status', 'pending')->count(); @endphp
@@ -46,7 +46,7 @@
                 </select>
             </div>
             <div class="flex-1 min-w-[200px]">
-                <label class="block text-[var(--text-secondary)] text-sm mb-1">File (CSV, XLSX)</label>
+                <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.File (CSV)') }}</label>
                 <input type="file" name="file" accept=".csv,.txt"
                     class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-1.5 text-sm file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:bg-emerald-600 file:text-white hover:file:bg-emerald-700" required>
             </div>
@@ -91,7 +91,7 @@
                                     <td class="py-3 text-[var(--text-primary)] text-sm">{{ $student->student_number }}</td>
                                     <td class="py-3 text-[var(--text-primary)] text-sm">{{ $student->name }}</td>
                                     <td class="py-3 text-[var(--text-secondary)] text-sm">{{ $student->section ? __('messages.Section') . ' ' . $student->section->name : __('messages.No section') }}</td>
-                                    <td class="py-3 text-[var(--text-primary)] text-sm font-medium">{{ $grade ? $grade->score . ' / ' . $subject->max_score : '-' }}</td>
+                                    <td class="py-3 text-[var(--text-primary)] text-sm font-medium">{{ $grade ? $grade->score . ' / ' . $subject->default_max_degree : '-' }}</td>
                                     <td class="py-3">
                                         @if($grade)
                                             <span class="px-2 py-0.5 rounded text-xs font-medium

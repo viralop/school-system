@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Grade;
 use App\Models\Level;
+use App\Models\MonthlyExam;
 use App\Models\Student;
 use App\Models\Term;
 
@@ -14,7 +15,7 @@ class GradeCalculationService
         $grades = Grade::where('student_id', $studentId)
             ->where('term_id', $termId)
             ->where('status', 'approved')
-            ->with('subject')
+            ->with(['subject'])
             ->get();
 
         if ($grades->isEmpty()) {
@@ -22,7 +23,7 @@ class GradeCalculationService
         }
 
         $totalEarned = $grades->sum('score');
-        $totalMax = $grades->sum(fn($g) => $g->subject->max_score);
+        $totalMax = $grades->sum(fn($g) => $g->subject->default_max_degree);
         $percentage = $totalMax > 0 ? ($totalEarned / $totalMax) * 100 : 0;
 
         return [
@@ -86,5 +87,48 @@ class GradeCalculationService
         }
 
         return $results;
+    }
+
+    public function calculateMonthlyExamResults(int $monthlyExamId): array
+    {
+        $exam = MonthlyExam::with('subjects.subject')->findOrFail($monthlyExamId);
+        $students = Student::where('level_id', $exam->level_id)->orderBy('name')->get();
+        $fullMark = $exam->subjects->sum('max_degree');
+
+        $results = [];
+        foreach ($students as $student) {
+            $grades = Grade::where('student_id', $student->id)
+                ->where('exam_type', 'monthly')
+                ->where('exam_id', $exam->id)
+                ->where('status', 'approved')
+                ->get();
+
+            $totalScore = $grades->sum('score');
+            $percentage = $fullMark > 0 ? ($totalScore / $fullMark) * 100 : 0;
+
+            $subjectResults = [];
+            foreach ($exam->subjects as $examSubject) {
+                $grade = $grades->where('subject_id', $examSubject->subject_id)->first();
+                $subjectResults[] = [
+                    'subject' => $examSubject->subject,
+                    'max_degree' => $examSubject->max_degree,
+                    'score' => $grade ? $grade->score : null,
+                ];
+            }
+
+            $results[] = [
+                'student' => $student,
+                'total_score' => round($totalScore, 2),
+                'full_mark' => round($fullMark, 2),
+                'percentage' => round($percentage, 2),
+                'subjects' => $subjectResults,
+            ];
+        }
+
+        return [
+            'exam' => $exam,
+            'full_mark' => round($fullMark, 2),
+            'results' => $results,
+        ];
     }
 }

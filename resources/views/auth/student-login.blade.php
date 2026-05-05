@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@lang('messages.Student Login') - ALWEFAQ</title>
+    <title>@lang('messages.Student Login') - خولة بنت الأزور</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/app.css">
     <style>
@@ -14,10 +14,8 @@
     @php $theme = session('theme', 'dark'); @endphp
     <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8">
         <div class="text-center mb-8">
-            <div class="mx-auto mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-500/25">
-                <svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
-            </div>
-            <h1 class="text-3xl font-bold text-[var(--text-primary)]">ALWEFAQ</h1>
+            <img src="/logo-removebg-preview.png" alt="خولة بنت الأزور" class="mx-auto mb-4 w-20 h-20 rounded-2xl object-contain shadow-lg shadow-blue-500/25">
+            <h1 class="text-3xl font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
             <p class="text-[var(--text-muted)] mt-1 text-sm">@lang('messages.Student Portal')</p>
             <p class="text-[var(--text-secondary)] text-xs mt-2">@lang('messages.Enter your student number to access your grades and profile.')</p>
         </div>

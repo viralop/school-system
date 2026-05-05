@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
-use App\Models\Level;
 use App\Models\Grade;
+use App\Models\Level;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Term;
@@ -25,29 +25,29 @@ class SubjectManagementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name_en' => ['required', 'string', 'max:255'],
             'name_ar' => ['nullable', 'string', 'max:255'],
-            'max_score' => ['required', 'numeric', 'min:1', 'max:9999'],
+            'default_max_degree' => ['required', 'numeric', 'min:1', 'max:9999'],
             'level_id' => ['required', 'exists:levels,id'],
             'teacher_id' => ['nullable', 'exists:users,id'],
         ]);
 
         if ($request->filled('teacher_id')) {
             $teacher = User::find($request->teacher_id);
-            if (! $teacher || ! $teacher->isTeacher()) {
+            if (!$teacher || !$teacher->isTeacher()) {
                 return back()->withErrors(['teacher_id' => 'Invalid teacher selected.']);
             }
         }
 
         Subject::create([
-            'name' => $request->name,
+            'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
-            'max_score' => $request->max_score,
+            'default_max_degree' => $request->default_max_degree,
             'level_id' => $request->level_id,
             'teacher_id' => $request->teacher_id ?: null,
         ]);
 
-        return back()->with('success', "Subject '{$request->name}' added.");
+        return back()->with('success', "Subject '{$request->name_en}' added.");
     }
 
     public function import(Request $request)
@@ -68,8 +68,9 @@ class SubjectManagementController extends Controller
             $skipped = 0;
 
             foreach ($rows as $row) {
-                $name = trim($row['name'] ?? $row['subject'] ?? '');
-                $maxScore = floatval($row['max_score'] ?? $row['maxscore'] ?? $row['max'] ?? 100);
+                $name = trim($row['name_en'] ?? $row['name'] ?? $row['subject'] ?? '');
+                $nameAr = trim($row['name_ar'] ?? '');
+                $maxDegree = floatval($row['default_max_degree'] ?? $row['max_degree'] ?? $row['max_score'] ?? 100);
                 $teacherEmail = trim($row['teacher_email'] ?? $row['teacher'] ?? $row['email'] ?? '');
 
                 if (empty($name)) {
@@ -84,8 +85,9 @@ class SubjectManagementController extends Controller
                 }
 
                 Subject::create([
-                    'name' => $name,
-                    'max_score' => $maxScore ?: 100,
+                    'name_en' => $name,
+                    'name_ar' => $nameAr ?: null,
+                    'default_max_degree' => $maxDegree ?: 100,
                     'level_id' => $levelId,
                     'teacher_id' => $teacherId,
                 ]);
@@ -128,9 +130,7 @@ class SubjectManagementController extends Controller
         $subject->load('level', 'teacher');
 
         $terms = Term::where('level_id', $subject->level_id)->orderBy('order')->get();
-
         $students = Student::where('level_id', $subject->level_id)->orderBy('name')->get();
-
         $grades = Grade::where('subject_id', $subject->id)->get();
 
         return view('supervisor.subject-grades', compact('subject', 'terms', 'students', 'grades'));
@@ -139,27 +139,27 @@ class SubjectManagementController extends Controller
     public function update(Request $request, Subject $subject)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name_en' => ['required', 'string', 'max:255'],
             'name_ar' => ['nullable', 'string', 'max:255'],
-            'max_score' => ['required', 'numeric', 'min:1', 'max:9999'],
+            'default_max_degree' => ['required', 'numeric', 'min:1', 'max:9999'],
             'teacher_id' => ['nullable', 'exists:users,id'],
         ]);
 
         if ($request->filled('teacher_id')) {
             $teacher = User::find($request->teacher_id);
-            if (! $teacher || ! $teacher->isTeacher()) {
+            if (!$teacher || !$teacher->isTeacher()) {
                 return back()->withErrors(['teacher_id' => 'Invalid teacher selected.']);
             }
         }
 
         $subject->update([
-            'name' => $request->name,
+            'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
-            'max_score' => $request->max_score,
+            'default_max_degree' => $request->default_max_degree,
             'teacher_id' => $request->teacher_id ?: null,
         ]);
 
-        return back()->with('success', "Subject '{$subject->name}' updated.");
+        return back()->with('success', "Subject '{$subject->name_en}' updated.");
     }
 
     public function destroy(Subject $subject)

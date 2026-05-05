@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', 'Subjects & Grades - ALWEFAQ')
+@section('title', 'Subjects & Grades - خولة بنت الأزور')
 
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
@@ -20,7 +20,7 @@
                     </div>
                     <div>
                         <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Subject Name') }}</label>
-                        <input type="text" name="name" placeholder="e.g. Math"
+                        <input type="text" name="name_en" placeholder="e.g. Math"
                             class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                     </div>
                     <div>
@@ -30,7 +30,7 @@
                     </div>
                     <div>
                         <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Max Score') }}</label>
-                        <input type="number" name="max_score" placeholder="100" step="0.01" min="1"
+                        <input type="number" name="default_max_degree" placeholder="100" step="0.01" min="1"
                             class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                     </div>
                     <div>
@@ -49,7 +49,7 @@
 
             <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
                 <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.Import Subjects from File') }}</h2>
-                <p class="text-[var(--text-secondary)] text-xs mb-3">{{ __('messages.CSV format') }}: <code class="bg-[var(--bg-input)] px-1.5 py-0.5 rounded">name, max_score, teacher_email</code></p>
+                <p class="text-[var(--text-secondary)] text-xs mb-3">{{ __('messages.CSV format') }}: <code class="bg-[var(--bg-input)] px-1.5 py-0.5 rounded">name_en, default_max_degree, teacher_email</code></p>
                 <form method="POST" action="{{ route('supervisor.subjects.import') }}" enctype="multipart/form-data" class="space-y-3">
                     @csrf
                     <div>
@@ -94,7 +94,7 @@
                                             <div class="flex items-center justify-between">
                                                 <div>
                                                     <p class="text-[var(--text-primary)] text-sm font-medium group-hover:text-blue-400 transition">{{ $subject->localizedName }}</p>
-                                                    <p class="text-[var(--text-secondary)] text-xs">{{ __('messages.Max Score') }}: {{ $subject->max_score }} | {{ $subject->teacher ? $subject->teacher->name : __('messages.No teacher') }}</p>
+                                                    <p class="text-[var(--text-secondary)] text-xs">{{ __('messages.Max Score') }}: {{ $subject->default_max_degree }} | {{ $subject->teacher ? $subject->teacher->name : __('messages.No teacher') }}</p>
                                                 </div>
                                                 <div class="flex items-center gap-2">
                                                     @if($pendingCount > 0)
@@ -107,7 +107,7 @@
                                             </div>
                                         </a>
                                         <div class="flex gap-2 px-4 pb-2">
-                                            <button type="button" onclick="openEditSubjectModal({{ $subject->id }}, '{{ addslashes($subject->name) }}', {{ $subject->max_score }}, {{ $subject->teacher_id ?? 'null' }}, '{{ addslashes($subject->name_ar ?? '') }}')"
+                                            <button type="button" onclick="openEditSubjectModal({{ $subject->id }}, '{{ addslashes($subject->name_en) }}', {{ $subject->default_max_degree }}, {{ $subject->teacher_id ?? 'null' }}, '{{ addslashes($subject->name_ar ?? '') }}')"
                                                 class="text-blue-400 hover:text-blue-300 text-xs px-2 py-1 bg-blue-500/10 rounded transition">{{ __('messages.Edit') }}</button>
                                             <form method="POST" action="{{ route('supervisor.subjects.destroy', $subject) }}" class="inline">
                                                 @csrf @method('DELETE')
@@ -136,7 +136,7 @@
                 @csrf @method('PUT')
                 <div class="mb-3">
                     <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Subject Name') }}</label>
-                    <input type="text" name="name" id="edit-subject-name"
+                    <input type="text" name="name_en" id="edit-subject-name"
                         class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                 </div>
                 <div class="mb-3">
@@ -146,7 +146,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="block text-[var(--text-secondary)] text-sm mb-1">{{ __('messages.Max Score') }}</label>
-                    <input type="number" name="max_score" id="edit-subject-max" step="0.01" min="1"
+                    <input type="number" name="default_max_degree" id="edit-subject-max" step="0.01" min="1"
                         class="w-full bg-[var(--bg-input)] text-[var(--text-primary)] border border-[var(--border-input)] rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/40" required>
                 </div>
                 <div class="mb-4">

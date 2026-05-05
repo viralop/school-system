@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', 'Manage Terms - ALWEFAQ')
+@section('title', 'Manage Terms - خولة بنت الأزور')
 
 @section('content')
     <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6">

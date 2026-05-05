@@ -1,6 +1,6 @@
 @extends('visitor.layout')
 
-@section('title', app()->getLocale() === 'ar' ? 'الإنجازات - ALWEFAQ' : 'Achievements - ALWEFAQ')
+@section('title', app()->getLocale() === 'ar' ? 'الإنجازات - خولة بنت الأزور' : 'Achievements - خولة بنت الأزور')
 @section('nav-achievements-active', 'text-white font-medium')
 
 @section('content')

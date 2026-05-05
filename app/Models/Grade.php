@@ -11,6 +11,8 @@ class Grade extends Model
         'student_id',
         'subject_id',
         'term_id',
+        'exam_type',
+        'exam_id',
         'score',
         'status',
         'entered_by',
@@ -41,6 +43,11 @@ class Grade extends Model
         return $this->belongsTo(Term::class);
     }
 
+    public function monthlyExam(): BelongsTo
+    {
+        return $this->belongsTo(MonthlyExam::class, 'exam_id');
+    }
+
     public function enteredBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'entered_by');
@@ -64,6 +71,11 @@ class Grade extends Model
     public function isRejected(): bool
     {
         return $this->status === 'rejected';
+    }
+
+    public function isMonthly(): bool
+    {
+        return $this->exam_type === 'monthly';
     }
 
     public function approve(int $supervisorId): void

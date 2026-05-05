@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subject extends Model
 {
-    protected $fillable = ['name', 'name_ar', 'max_score', 'level_id', 'teacher_id'];
+    protected $fillable = ['name_en', 'name_ar', 'default_max_degree', 'level_id', 'teacher_id'];
 
     public function getLocalizedNameAttribute(): string
     {
-        return app()->getLocale() === 'ar' && $this->name_ar ? $this->name_ar : $this->name;
+        return app()->getLocale() === 'ar' && $this->name_ar ? $this->name_ar : $this->name_en;
     }
 
     protected function casts(): array
     {
         return [
-            'max_score' => 'decimal:2',
+            'default_max_degree' => 'decimal:2',
         ];
     }
 

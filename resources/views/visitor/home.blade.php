@@ -1,6 +1,6 @@
 @extends('visitor.layout')
 
-@section('title', app()->getLocale() === 'ar' ? 'الرئيسية - ALWEFAQ' : 'Home - ALWEFAQ')
+@section('title', app()->getLocale() === 'ar' ? 'الرئيسية - خولة بنت الأزور' : 'Home - خولة بنت الأزور')
 @section('nav-home-active', 'text-white font-medium')
 
 @section('content')
@@ -8,7 +8,7 @@
         $locale = app()->getLocale();
         $about = \App\Models\SiteSetting::get('about_' . $locale);
         $achievements = \App\Models\Achievement::latest()->take(4)->get();
-        $schoolName = \App\Models\SiteSetting::get('school_name_' . $locale, 'ALWEFAQ');
+        $schoolName = \App\Models\SiteSetting::get('school_name_' . $locale, 'خولة بنت الأزور');
     @endphp
 
     <div class="max-w-7xl mx-auto px-4 py-8 md:py-16">

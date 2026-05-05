@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', 'Pending Grades - ALWEFAQ')
+@section('title', 'Pending Grades - خولة بنت الأزور')
 
 @section('content')
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 md:mb-6">
@@ -50,9 +50,9 @@
                                 <td class="px-4 py-3 text-[var(--text-primary)] text-sm">{{ $grade->student->name }} <span class="text-[var(--text-secondary)]">({{ $grade->student->student_number }})</span></td>
                                 <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->student->level->localizedName }}</td>
                                 <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->subject->localizedName }}</td>
-                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->term->localizedName }}</td>
+                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->term ? $grade->term->localizedName : '-' }}</td>
                                 <td class="px-4 py-3 text-[var(--text-primary)] text-sm text-center font-medium">{{ $grade->score }}</td>
-                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm text-center">{{ $grade->subject->max_score }}</td>
+                                <td class="px-4 py-3 text-[var(--text-secondary)] text-sm text-center">{{ $grade->subject->default_max_degree }}</td>
                                 <td class="px-4 py-3 text-[var(--text-secondary)] text-sm">{{ $grade->enteredBy->name }}</td>
                                 <td class="px-4 py-3 text-center">
                                     <div class="flex gap-1 justify-center">

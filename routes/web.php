@@ -6,6 +6,7 @@ use App\Http\Controllers\SecureLinkController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\Supervisor\ContentManagementController;
 use App\Http\Controllers\Supervisor\GradeController;
+use App\Http\Controllers\Supervisor\MonthlyExamController;
 use App\Http\Controllers\Supervisor\SectionManagementController;
 use App\Http\Controllers\Supervisor\StudentManagementController;
 use App\Http\Controllers\Supervisor\SubjectManagementController;
@@ -206,6 +207,21 @@ Route::middleware(['auth', 'role:supervisor'])->group(function () {
     });
 
     Route::get('/supervisor/results', [GradeController::class, 'results'])->name('supervisor.results');
+
+    Route::prefix('supervisor/monthly-exams')->name('supervisor.monthly-exams.')->group(function () {
+        Route::get('/', [MonthlyExamController::class, 'index'])->name('index');
+        Route::post('/', [MonthlyExamController::class, 'store'])->name('store');
+        Route::put('/{monthlyExam}', [MonthlyExamController::class, 'update'])->name('update');
+        Route::delete('/{monthlyExam}', [MonthlyExamController::class, 'destroy'])->name('destroy');
+        Route::patch('/{monthlyExam}/close', [MonthlyExamController::class, 'close'])->name('close');
+        Route::patch('/{monthlyExam}/open', [MonthlyExamController::class, 'open'])->name('open');
+        Route::get('/{monthlyExam}/results', [MonthlyExamController::class, 'results'])->name('results');
+        Route::get('/{monthlyExam}/review', [MonthlyExamController::class, 'review'])->name('review');
+        Route::post('/{monthlyExam}/bulk-approve', [MonthlyExamController::class, 'bulkApprove'])->name('bulk-approve');
+        Route::post('/{monthlyExam}/bulk-reject', [MonthlyExamController::class, 'bulkReject'])->name('bulk-reject');
+        Route::patch('/{monthlyExam}/approve/{grade}', [MonthlyExamController::class, 'approveGrade'])->name('approve-grade');
+        Route::patch('/{monthlyExam}/reject/{grade}', [MonthlyExamController::class, 'rejectGrade'])->name('reject-grade');
+    });
 
     Route::prefix('supervisor/content')->name('supervisor.content.')->group(function () {
         Route::get('/', [ContentManagementController::class, 'edit'])->name('edit');

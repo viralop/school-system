@@ -1,17 +1,18 @@
 @extends('layouts.teacher')
 
-@section('title', 'Teacher Dashboard - ALWEFAQ')
+@section('title', 'Teacher Dashboard - خولة بنت الأزور')
 
 @section('content')
     @php
         $teacher = auth()->user();
-        $subjects = \App\Models\Subject::where('teacher_id', $teacher->id)->with('level.terms')->get();
+        $subjects = \App\Models\Subject::where('teacher_id', $teacher->id)->with(['level.terms'])->get();
         $studentCount = \App\Models\Student::whereIn('level_id', $subjects->pluck('level_id')->unique())->count();
         $pendingGrades = \App\Models\Grade::where('entered_by', $teacher->id)->where('status', 'pending')->count();
         $approvedGrades = \App\Models\Grade::where('entered_by', $teacher->id)->where('status', 'approved')->count();
     @endphp
 
-    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-8rem)]">
+    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-8rem)] relative" style="background-image:url('/logo-removebg-preview.png');background-repeat:no-repeat;background-position:center;background-size:750px;opacity:0.92;">
+        <div class="absolute inset-0 bg-[var(--bg-primary)] opacity-85 -z-10"></div>
         <div class="w-full max-w-3xl space-y-6">
             <div class="grid grid-cols-2 gap-3 md:gap-6">
                 <a href="{{ route('teacher.grades') }}" class="block bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden hover:shadow-lg transition-all duration-300 no-underline group">
@@ -74,7 +75,7 @@
                     @php
                         $openTerms = $subject->level->terms->filter(fn($t) => $t->isOpen());
                         $url = $openTerms->count() === 1
-                            ? route('teacher.grades.entry', ['subject_id' => $subject->id, 'term_id' => $openTerms->first()->id])
+                            ? route('teacher.grades.entry', ['exam_type' => 'term', 'subject_id' => $subject->id, 'exam_id' => $openTerms->first()->id])
                             : route('teacher.grades');
                     @endphp
                     <a href="{{ $url }}" class="block bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border-main)] hover:border-[var(--border-hover)] transition shadow-[var(--shadow-card)] no-underline">
@@ -84,7 +85,7 @@
                             </div>
                             <p class="text-[var(--text-primary)] font-medium">{{ $subject->localizedName }}</p>
                         </div>
-                        <p class="text-[var(--text-secondary)] text-sm ml-0 md:ml-12">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->max_score }}</p>
+                        <p class="text-[var(--text-secondary)] text-sm ml-0 md:ml-12">{{ $subject->level->localizedName }} | {{ __('messages.Max Score') }}: {{ $subject->default_max_degree }}</p>
                     </a>
                 @endforeach
             </div>

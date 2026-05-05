@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', 'Manage Students - ALWEFAQ')
+@section('title', 'Manage Students - خولة بنت الأزور')
 
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">

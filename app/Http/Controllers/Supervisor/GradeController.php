@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supervisor;
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
 use App\Models\Level;
+use App\Models\MonthlyExam;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Term;
@@ -41,14 +42,12 @@ class GradeController extends Controller
     public function approve(Grade $grade)
     {
         $grade->approve(Auth::id());
-
         return back()->with('success', 'Grade approved.');
     }
 
     public function reject(Grade $grade)
     {
         $grade->reject(Auth::id());
-
         return back()->with('success', 'Grade rejected.');
     }
 
@@ -89,8 +88,8 @@ class GradeController extends Controller
     {
         $request->validate([
             'file' => ['required', 'file', 'mimes:csv,txt', 'max:5120'],
-            'subject_id' => ['required', 'exists:subjects,id'],
             'term_id' => ['required', 'exists:terms,id'],
+            'subject_id' => ['required', 'exists:subjects,id'],
         ]);
 
         $subject = Subject::findOrFail($request->subject_id);
@@ -113,7 +112,7 @@ class GradeController extends Controller
 
             foreach ($rows as $row) {
                 $studentNumber = trim($row['student_number'] ?? $row['number'] ?? $row['id'] ?? '');
-                $score = floatval($row['score'] ?? $row['grade'] ?? $row['marks'] ?? 0);
+                $score = floatval($row['score'] ?? $row['grade'] ?? $row['degree'] ?? 0);
 
                 if (empty($studentNumber)) {
                     $skipped++;
@@ -129,7 +128,7 @@ class GradeController extends Controller
                     continue;
                 }
 
-                if ($score > $subject->max_score) {
+                if ($score > $subject->default_max_degree) {
                     $skipped++;
                     continue;
                 }
@@ -138,9 +137,11 @@ class GradeController extends Controller
                     [
                         'student_id' => $student->id,
                         'subject_id' => $subject->id,
-                        'term_id' => $term->id,
+                        'exam_type' => 'term',
+                        'exam_id' => $term->id,
                     ],
                     [
+                        'term_id' => $term->id,
                         'score' => $score,
                         'status' => 'pending',
                         'entered_by' => $supervisorId,
