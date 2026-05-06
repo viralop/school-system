@@ -12,10 +12,14 @@ use App\Http\Controllers\Supervisor\StudentManagementController;
 use App\Http\Controllers\Supervisor\SubjectManagementController;
 use App\Http\Controllers\Supervisor\TeacherManagementController;
 use App\Http\Controllers\Supervisor\TermManagementController;
+use App\Http\Controllers\SupervisorSetupController;
 use App\Http\Controllers\TeacherAuthController;
 use App\Http\Controllers\TeacherGradeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
+
+Route::get('/setup', [SupervisorSetupController::class, 'show'])->name('setup');
+Route::post('/setup', [SupervisorSetupController::class, 'store'])->name('setup.store');
 
 Route::get('/', function () {
     return view('visitor.home');

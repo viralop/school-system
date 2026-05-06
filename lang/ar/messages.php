@@ -261,4 +261,7 @@ return [
     'View all' => 'عرض الكل',
     'All rights reserved' => 'جميع الحقوق محفوظة',
     'Arabic' => 'عربي',
+    'Setup' => 'الإعداد',
+    'Supervisor Setup' => 'إعداد المشرف',
+    'No supervisor account exists yet. Create the first administrator account to get started.' => 'لا يوجد حساب مشرف بعد. قم بإنشاء حساب المسؤول الأول للبدء.',
 ];

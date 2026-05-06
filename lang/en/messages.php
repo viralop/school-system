@@ -262,4 +262,7 @@ return [
     'View all' => 'View all',
     'All rights reserved' => 'All rights reserved',
     'Arabic' => 'Arabic',
+    'Setup' => 'Setup',
+    'Supervisor Setup' => 'Supervisor Setup',
+    'No supervisor account exists yet. Create the first administrator account to get started.' => 'No supervisor account exists yet. Create the first administrator account to get started.',
 ];
