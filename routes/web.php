@@ -26,6 +26,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/login', function () {
+    if (! \App\Models\User::where('role', 'supervisor')->exists()) {
+        return redirect()->route('setup');
+    }
     return view('auth.login');
 })->name('login');
 
