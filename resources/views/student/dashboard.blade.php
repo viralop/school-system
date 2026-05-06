@@ -32,7 +32,7 @@
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
             <div class="flex items-center gap-3 flex-wrap">
                 <div class="flex items-center gap-2.5">
-                    <img src="/logo-removebg-preview.png" alt="خولة بنت الأزور" class="w-11 h-11 rounded-xl object-contain">
+                    <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-11 h-11 rounded-xl object-cover">
                     <h1 class="text-lg font-bold text-[var(--text-primary)]">خولة بنت الأزور <span class="text-purple-400 text-xs font-normal">@lang('messages.Student')</span></h1>
                 </div>
                 <span class="text-[var(--text-muted)] text-xs sm:text-sm hidden sm:inline">{{ $student->name }} ({{ $student->student_number }})</span>

@@ -37,7 +37,7 @@
             <div class="p-5 border-b border-[var(--border-main)]">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <img src="/logo-removebg-preview.png" alt="خولة بنت الأزور" class="w-12 h-12 rounded-xl object-contain">
+                        <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-12 h-12 rounded-xl object-cover shadow-md">
                         <div>
                             <h1 class="text-lg font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
                             <span class="text-emerald-400 text-xs">{{ __('messages.Teacher') }}</span>
@@ -101,7 +101,7 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                 </button>
                 <div class="flex items-center gap-2">
-                    <img src="/logo-removebg-preview.png" alt="خولة بنت الأزور" class="w-10 h-10 rounded-lg object-contain">
+                    <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-10 h-10 rounded-lg object-cover">
                     <span class="text-sm font-bold text-[var(--text-primary)]">خولة بنت الأزور</span>
                 </div>
                 <div class="flex items-center gap-2">

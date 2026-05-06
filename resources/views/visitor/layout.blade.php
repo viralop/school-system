@@ -23,7 +23,7 @@
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-4 md:gap-8">
                 <a href="{{ route('home') }}" class="flex items-center gap-2.5">
-                    <img src="/logo-removebg-preview.png" alt="خولة بنت الأزور" class="w-11 h-11 rounded-xl object-contain">
+                    <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-11 h-11 rounded-xl object-cover">
                     <span class="text-xl font-bold text-white">{{ $schoolName }}</span>
                 </a>
                 <div class="hidden md:flex items-center gap-5">

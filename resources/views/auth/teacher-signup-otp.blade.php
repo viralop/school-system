@@ -11,7 +11,7 @@
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8">
         <div class="text-center mb-8">
-            <img src="/logo-removebg-preview.png" alt="خولة بنت الأزور" class="mx-auto mb-4 w-20 h-20 rounded-2xl object-contain shadow-lg shadow-blue-500/25">
+            <img src="/logo.jpg" alt="خولة بنت الأزور" class="mx-auto mb-4 w-20 h-20 rounded-2xl object-cover shadow-lg shadow-blue-500/25">
             <h1 class="text-3xl font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
             <p class="text-[var(--text-muted)] mt-1 text-sm">@lang('messages.Check your email')</p>
             <p class="text-[var(--text-tertiary)] text-xs mt-1">@lang('messages.We sent a 6-digit code to') <span class="text-[var(--text-label)]">{{ $email }}</span></p>
