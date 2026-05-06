@@ -6,6 +6,7 @@ use App\Http\Controllers\SecureLinkController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\Supervisor\ContentManagementController;
 use App\Http\Controllers\Supervisor\GradeController;
+use App\Http\Controllers\Supervisor\LevelManagementController;
 use App\Http\Controllers\Supervisor\MonthlyExamController;
 use App\Http\Controllers\Supervisor\SectionManagementController;
 use App\Http\Controllers\Supervisor\StudentManagementController;
@@ -157,6 +158,13 @@ Route::middleware(['auth', 'role:supervisor'])->group(function () {
     Route::get('/supervisor/dashboard', function () {
         return view('supervisor.dashboard');
     })->name('supervisor.dashboard');
+
+    Route::prefix('supervisor/levels')->name('supervisor.levels.')->group(function () {
+        Route::get('/', [LevelManagementController::class, 'index'])->name('index');
+        Route::post('/', [LevelManagementController::class, 'store'])->name('store');
+        Route::put('/{level}', [LevelManagementController::class, 'update'])->name('update');
+        Route::delete('/{level}', [LevelManagementController::class, 'destroy'])->name('destroy');
+    });
 
     Route::prefix('supervisor/teachers')->name('supervisor.teachers.')->group(function () {
         Route::get('/', [TeacherManagementController::class, 'index'])->name('index');
