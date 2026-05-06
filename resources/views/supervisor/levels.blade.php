@@ -1,6 +1,6 @@
 @extends('layouts.supervisor')
 
-@section('title', 'Manage Levels - خولة بنت الأزور')
+@section('title', __('messages.Manage Levels') . ' - خولة بنت الأزور')
 
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">

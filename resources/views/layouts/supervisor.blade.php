@@ -12,6 +12,8 @@
         .sidebar-link.active { background: rgba(59,130,246,0.15); color: var(--text-primary); font-weight: 500; }
         .sidebar-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
+        .sidebar-nav { scrollbar-width: none; -ms-overflow-style: none; }
+        .sidebar-nav::-webkit-scrollbar { display: none; }
         @media (max-width: 767px) {
             #sidebar { width: 0; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
             #sidebar.active { width: 17rem; }
@@ -58,7 +60,7 @@
                 </div>
             </div>
 
-            <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+            <nav class="sidebar-nav flex-1 p-3 space-y-1 overflow-y-auto">
                 @foreach($navLinks as $link)
                     @php $isActive = request()->routeIs($link['match']); @endphp
                     <a href="{{ route($link['route']) }}" onclick="closeSidebar()"

@@ -285,4 +285,9 @@ return [
     'Cannot delete level with subjects.' => 'لا يمكن حذف مستوى يحتوي على مواد.',
     'Cannot delete level with sections.' => 'لا يمكن حذف مستوى يحتوي على شعب.',
     'Delete this level permanently?' => 'هل تريد حذف هذا المستوى نهائياً؟',
+    'Levels' => 'المستويات',
+    'Manage Levels' => 'إدارة المستويات',
+    'students' => 'طالب',
+    'subjects' => 'مادة',
+    'sections' => 'شعبة',
 ];

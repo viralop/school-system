@@ -286,4 +286,9 @@ return [
     'Cannot delete level with subjects.' => 'Cannot delete level with subjects. Delete subjects first.',
     'Cannot delete level with sections.' => 'Cannot delete level with sections. Delete sections first.',
     'Delete this level permanently?' => 'Delete this level permanently? This will also delete all associated sections and terms.',
+    'Levels' => 'Levels',
+    'Manage Levels' => 'Manage Levels',
+    'students' => 'students',
+    'subjects' => 'subjects',
+    'sections' => 'sections',
 ];
