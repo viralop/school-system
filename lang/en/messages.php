@@ -265,4 +265,12 @@ return [
     'Setup' => 'Setup',
     'Supervisor Setup' => 'Supervisor Setup',
     'No supervisor account exists yet. Create the first administrator account to get started.' => 'No supervisor account exists yet. Create the first administrator account to get started.',
+    'Teacher ID' => 'Teacher ID',
+    'Teacher Name' => 'Teacher Name',
+    'Teacher IDs (one per line)' => 'Teacher IDs (one per line)',
+    'Add Teachers' => 'Add Teachers',
+    'Pending Teacher IDs' => 'Pending Teacher IDs',
+    'No pending teacher IDs yet.' => 'No pending teacher IDs yet.',
+    'Remove this ID?' => 'Remove this ID?',
+    'Enter the teacher ID provided by the supervisor.' => 'Enter the teacher ID provided by the supervisor.',
 ];

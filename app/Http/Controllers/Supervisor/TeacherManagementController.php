@@ -20,43 +20,46 @@ class TeacherManagementController extends Controller
     public function invite(Request $request)
     {
         $request->validate([
-            'emails' => ['required', 'string'],
-            'name' => ['nullable', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'teacher_ids' => ['required', 'string'],
         ]);
 
         $name = $request->input('name');
-        $emails = array_filter(
-            array_map('trim', explode("\n", $request->emails)),
-            fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL),
+        $teacherIds = array_filter(
+            array_map('trim', explode("\n", $request->teacher_ids)),
+            fn($id) => strlen($id) >= 2,
         );
 
-        if (empty($emails)) {
-            return back()->withErrors(['emails' => 'No valid email addresses found.']);
+        if (empty($teacherIds)) {
+            return back()->withErrors(['teacher_ids' => 'No valid teacher IDs found.']);
         }
 
         $added = 0;
-        foreach ($emails as $email) {
-            if (TeacherInvite::where('email', $email)->exists()) {
+        foreach ($teacherIds as $id) {
+            if (TeacherInvite::where('teacher_id', $id)->exists()) {
+                continue;
+            }
+            if (User::where('teacher_id', $id)->exists()) {
                 continue;
             }
 
             TeacherInvite::create([
-                'email' => $email,
-                'name' => $name ?: null,
+                'teacher_id' => $id,
+                'name' => $name,
                 'invited_by' => auth()->id(),
                 'status' => 'pending',
             ]);
             $added++;
         }
 
-        return back()->with('success', "{$added} teacher email(s) added successfully.");
+        return back()->with('success', "{$added} teacher ID(s) added successfully.");
     }
 
     public function removeInvite(TeacherInvite $invite)
     {
         $invite->delete();
 
-        return back()->with('success', 'Invitation removed.');
+        return back()->with('success', 'Teacher ID removed.');
     }
 
     public function freeze(User $teacher)

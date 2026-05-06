@@ -113,15 +113,10 @@ Route::middleware('secure.link')->group(function () {
 Route::prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/signup', [TeacherAuthController::class, 'showSignupForm'])->name('signup');
     Route::post('/signup', [TeacherAuthController::class, 'signupStep1'])->name('signup.step1');
-    Route::get('/signup/otp', [TeacherAuthController::class, 'showSignupOtpForm'])->name('signup.otp');
-    Route::post('/signup/otp', [TeacherAuthController::class, 'signupVerifyOtp'])->name('signup.verify-otp');
     Route::get('/signup/password', [TeacherAuthController::class, 'showSetPasswordForm'])->name('signup.password');
     Route::post('/signup/password', [TeacherAuthController::class, 'setPassword'])->name('signup.password.store');
     Route::get('/login', [TeacherAuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [TeacherAuthController::class, 'loginStep1'])->name('login.step1');
-    Route::get('/login/otp', [TeacherAuthController::class, 'showLoginOtpForm'])->name('login.otp');
-    Route::post('/login/otp', [TeacherAuthController::class, 'loginVerifyOtp'])->name('login.verify-otp');
-    Route::post('/resend-otp', [TeacherAuthController::class, 'resendOtp'])->name('resend-otp');
     Route::post('/logout', [TeacherAuthController::class, 'logout'])->name('logout');
 });
 

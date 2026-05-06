@@ -15,7 +15,7 @@
             <img src="/logo-removebg-preview.png" alt="خولة بنت الأزور" class="mx-auto mb-4 w-20 h-20 rounded-2xl object-contain shadow-lg shadow-blue-500/25">
             <h1 class="text-3xl font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
             <p class="text-[var(--text-muted)] mt-1 text-sm">@lang('messages.Set up your account')</p>
-            <p class="text-[var(--text-tertiary)] text-xs mt-1">{{ $email }}</p>
+            <p class="text-[var(--text-tertiary)] text-xs mt-1">{{ __('messages.Teacher ID') }}: {{ $teacher_id }}</p>
         </div>
 
         <form method="POST" action="{{ route('teacher.signup.password') }}">

@@ -264,4 +264,12 @@ return [
     'Setup' => 'الإعداد',
     'Supervisor Setup' => 'إعداد المشرف',
     'No supervisor account exists yet. Create the first administrator account to get started.' => 'لا يوجد حساب مشرف بعد. قم بإنشاء حساب المسؤول الأول للبدء.',
+    'Teacher ID' => 'رقم المعلم',
+    'Teacher Name' => 'اسم المعلم',
+    'Teacher IDs (one per line)' => 'أرقام المعلمين (واحد في كل سطر)',
+    'Add Teachers' => 'إضافة معلمين',
+    'Pending Teacher IDs' => 'أرقام المعلمين المعلقة',
+    'No pending teacher IDs yet.' => 'لا توجد أرقام معلمين معلقة بعد.',
+    'Remove this ID?' => 'هل تريد إزالة هذا الرقم؟',
+    'Enter the teacher ID provided by the supervisor.' => 'أدخل رقم المعلم الذي قدمه المشرف.',
 ];

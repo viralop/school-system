@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class TeacherInvite extends Model
 {
     protected $fillable = [
-        'email',
+        'teacher_id',
         'name',
         'invited_by',
         'status',
@@ -24,16 +24,16 @@ class TeacherInvite extends Model
         return $this->belongsTo(User::class, 'invited_by');
     }
 
-    public static function isEmailApproved(string $email): bool
+    public static function isTeacherIdApproved(string $teacherId): bool
     {
-        return self::where('email', $email)
+        return self::where('teacher_id', $teacherId)
             ->where('status', 'pending')
             ->exists();
     }
 
-    public static function markUsed(string $email): void
+    public static function markUsed(string $teacherId): void
     {
-        self::where('email', $email)
+        self::where('teacher_id', $teacherId)
             ->where('status', 'pending')
             ->update(['status' => 'used']);
     }
