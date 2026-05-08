@@ -290,4 +290,10 @@ return [
     'students' => 'طالب',
     'subjects' => 'مادة',
     'sections' => 'شعبة',
+    'Teacher Portal' => 'بوابة المعلم',
+    'Enter your teacher ID to access your dashboard.' => 'أدخل رقم المعلم للوصول إلى لوحة التحكم.',
+    'e.g. TCH-001' => 'مثال: TCH-001',
+    'Access My Dashboard' => 'الدخول للوحة التحكم',
+    'Manage Teachers' => 'إدارة المعلمين',
+    'teachers created successfully.' => 'تم إنشاء المعلمين بنجاح.',
 ];

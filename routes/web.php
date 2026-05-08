@@ -115,12 +115,8 @@ Route::middleware('secure.link')->group(function () {
 });
 
 Route::prefix('teacher')->name('teacher.')->group(function () {
-    Route::get('/signup', [TeacherAuthController::class, 'showSignupForm'])->name('signup');
-    Route::post('/signup', [TeacherAuthController::class, 'signupStep1'])->name('signup.step1');
-    Route::get('/signup/password', [TeacherAuthController::class, 'showSetPasswordForm'])->name('signup.password');
-    Route::post('/signup/password', [TeacherAuthController::class, 'setPassword'])->name('signup.password.store');
     Route::get('/login', [TeacherAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [TeacherAuthController::class, 'loginStep1'])->name('login.step1');
+    Route::post('/login', [TeacherAuthController::class, 'login'])->name('login.post');
     Route::post('/logout', [TeacherAuthController::class, 'logout'])->name('logout');
 });
 
@@ -168,8 +164,7 @@ Route::middleware(['auth', 'role:supervisor'])->group(function () {
 
     Route::prefix('supervisor/teachers')->name('supervisor.teachers.')->group(function () {
         Route::get('/', [TeacherManagementController::class, 'index'])->name('index');
-        Route::post('/invite', [TeacherManagementController::class, 'invite'])->name('invite');
-        Route::delete('/invite/{invite}', [TeacherManagementController::class, 'removeInvite'])->name('remove-invite');
+        Route::post('/', [TeacherManagementController::class, 'store'])->name('store');
         Route::patch('/{teacher}/freeze', [TeacherManagementController::class, 'freeze'])->name('freeze');
         Route::patch('/{teacher}/unfreeze', [TeacherManagementController::class, 'unfreeze'])->name('unfreeze');
         Route::delete('/{teacher}', [TeacherManagementController::class, 'destroy'])->name('destroy');

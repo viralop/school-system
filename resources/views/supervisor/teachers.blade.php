@@ -1,13 +1,13 @@
 @extends('layouts.supervisor')
 
-@section('title', 'Manage Teachers - خولة بنت الأزور')
+@section('title', __('messages.Manage Teachers') . ' - خولة بنت الأزور')
 
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
         <div>
             <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6">
                 <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.Add Teacher') }}</h2>
-                <form method="POST" action="{{ route('supervisor.teachers.invite') }}">
+                <form method="POST" action="{{ route('supervisor.teachers.store') }}">
                     @csrf
                     <div class="mb-4">
                         <label class="block text-[var(--text-secondary)] text-sm font-medium mb-2">{{ __('messages.Teacher Name') }}</label>
@@ -30,36 +30,6 @@
                         {{ __('messages.Add Teachers') }}
                     </button>
                 </form>
-            </div>
-
-            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6">
-                <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">{{ __('messages.Pending Teacher IDs') }}</h2>
-                @if($invites->count() > 0)
-                    <div class="space-y-2">
-                        @foreach($invites as $invite)
-                            <div class="flex items-center justify-between bg-[var(--bg-hover)] rounded-lg px-4 py-3 border border-[var(--border-main)]">
-                                <div>
-                                    @if($invite->name)
-                                        <p class="text-[var(--text-primary)] text-sm">{{ $invite->name }}</p>
-                                    @endif
-                                    <p class="{{ $invite->name ? 'text-[var(--text-secondary)] text-xs' : 'text-[var(--text-primary)] text-sm' }}">{{ __('messages.Teacher ID') }}: {{ $invite->teacher_id }}</p>
-                                    <p class="text-xs {{ $invite->status === 'pending' ? 'text-amber-400' : 'text-emerald-400' }}">
-                                        {{ ucfirst($invite->status) }}
-                                    </p>
-                                </div>
-                                @if($invite->status === 'pending')
-                                    <form method="POST" action="{{ route('supervisor.teachers.remove-invite', $invite) }}">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="text-red-400 hover:text-red-300 text-sm transition"
-                                            onclick="return confirm('{{ __('messages.Remove this ID?') }}')">{{ __('messages.Remove') }}</button>
-                                    </form>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <p class="text-[var(--text-secondary)] text-sm">{{ __('messages.No pending teacher IDs yet.') }}</p>
-                @endif
             </div>
         </div>
 

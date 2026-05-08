@@ -291,4 +291,10 @@ return [
     'students' => 'students',
     'subjects' => 'subjects',
     'sections' => 'sections',
+    'Teacher Portal' => 'Teacher Portal',
+    'Enter your teacher ID to access your dashboard.' => 'Enter your teacher ID to access your dashboard.',
+    'e.g. TCH-001' => 'e.g. TCH-001',
+    'Access My Dashboard' => 'Access My Dashboard',
+    'Manage Teachers' => 'Manage Teachers',
+    'teachers created successfully.' => 'teachers created successfully.',
 ];

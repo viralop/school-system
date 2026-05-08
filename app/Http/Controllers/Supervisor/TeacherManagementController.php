@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
-use App\Models\TeacherInvite;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,12 +11,11 @@ class TeacherManagementController extends Controller
     public function index()
     {
         $teachers = User::where('role', 'teacher')->latest()->get();
-        $invites = TeacherInvite::with('invitedBy')->latest()->get();
 
-        return view('supervisor.teachers', compact('teachers', 'invites'));
+        return view('supervisor.teachers', compact('teachers'));
     }
 
-    public function invite(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -36,30 +34,22 @@ class TeacherManagementController extends Controller
 
         $added = 0;
         foreach ($teacherIds as $id) {
-            if (TeacherInvite::where('teacher_id', $id)->exists()) {
-                continue;
-            }
             if (User::where('teacher_id', $id)->exists()) {
                 continue;
             }
 
-            TeacherInvite::create([
-                'teacher_id' => $id,
+            User::create([
                 'name' => $name,
-                'invited_by' => auth()->id(),
-                'status' => 'pending',
+                'email' => $id . '@teacher.local',
+                'password' => '',
+                'role' => 'teacher',
+                'status' => 'active',
+                'teacher_id' => $id,
             ]);
             $added++;
         }
 
-        return back()->with('success', "{$added} teacher ID(s) added successfully.");
-    }
-
-    public function removeInvite(TeacherInvite $invite)
-    {
-        $invite->delete();
-
-        return back()->with('success', 'Teacher ID removed.');
+        return back()->with('success', "{$added} teacher(s) created successfully.");
     }
 
     public function freeze(User $teacher)
