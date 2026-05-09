@@ -28,12 +28,14 @@
             ->calculateLevelGrade($student->id, $student->level_id);
     @endphp
 
-    <nav class="bg-[var(--bg-card-80)] border-b border-[var(--border-main)] backdrop-blur-xl sticky top-0 z-50">
+    <nav class="glass-card bg-[var(--bg-card-80)] border-b border-[var(--border-main)] backdrop-blur-xl sticky top-0 z-50 animate-fade-in">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
             <div class="flex items-center gap-3 flex-wrap">
                 <div class="flex items-center gap-2.5">
-                    <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-11 h-11 rounded-xl object-cover">
-                    <h1 class="text-lg font-bold text-[var(--text-primary)]">خولة بنت الأزور <span class="text-purple-400 text-xs font-normal">@lang('messages.Student')</span></h1>
+                    <div class="rounded-xl p-0.5 bg-gradient-to-br from-purple-500/40 via-pink-500/30 to-amber-500/30">
+                        <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-11 h-11 rounded-xl object-cover shadow-lg">
+                    </div>
+                    <h1 class="text-lg font-bold gradient-text">خولة بنت الأزور <span class="text-xs font-normal bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">@lang('messages.Student')</span></h1>
                 </div>
                 <span class="text-[var(--text-muted)] text-xs sm:text-sm hidden sm:inline">{{ $student->name }} ({{ $student->student_number }})</span>
             </div>
@@ -52,7 +54,7 @@
                 </a>
                 <form method="POST" action="{{ route('student.logout') }}">
                     @csrf
-                    <button type="submit" class="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] text-sm flex items-center gap-1.5 transition">
+                    <button type="submit" class="text-[var(--text-tertiary)] hover:text-red-400 text-sm flex items-center gap-1.5 transition-all duration-200 hover:translate-x-1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg>
                         @lang('messages.Logout')
                     </button>
@@ -62,7 +64,7 @@
     </nav>
 
     <div class="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)]">
+        <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)] hover-lift animate-fade-in-up">
             <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">@lang('messages.My Profile')</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 <div>
@@ -93,7 +95,7 @@
         </div>
 
         @if($levelGrade)
-            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)]">
+            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)] hover-lift animate-fade-in-up stagger-2">
                 <h2 class="text-lg font-semibold text-[var(--text-primary)] mb-4">@lang('messages.Overall Result') - {{ $student->level->localizedName }}</h2>
                 <div class="flex items-center gap-4 sm:gap-8">
                     <div class="text-center">
@@ -117,10 +119,10 @@
                 $firstGrade = $examGrades->first();
                 $examName = $firstGrade->monthlyExam ? $firstGrade->monthlyExam->localizedName : __('messages.Monthly Exam');
             @endphp
-            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)]">
+            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)] hover-lift hover-glow animate-fade-in-up stagger-3">
                 <div class="flex items-center gap-2 mb-3">
                     <h3 class="text-[var(--text-primary)] font-semibold">{{ $examName }}</h3>
-                    <span class="px-2 py-0.5 rounded text-xs font-medium bg-purple-500/15 text-purple-400">{{ __('messages.Monthly Exam') }}</span>
+                    <span class="px-2 py-0.5 rounded text-xs font-medium bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 border border-purple-500/20">{{ __('messages.Monthly Exam') }}</span>
                 </div>
                 <div class="mobile-scroll-table overflow-x-auto">
                     <table class="w-full">
@@ -153,7 +155,7 @@
         @endforeach
 
         @foreach($termGrades as $termId => $termGradesList)
-            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)]">
+            <div class="bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] p-6 mb-6 shadow-[var(--shadow-card)] hover-lift hover-glow animate-fade-in-up stagger-4">
                 <h3 class="text-[var(--text-primary)] font-semibold mb-3">{{ $termGradesList->first()->term->localizedName }}</h3>
                 <div class="mobile-scroll-table overflow-x-auto">
                     <table class="w-full">

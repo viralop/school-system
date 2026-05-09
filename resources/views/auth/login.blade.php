@@ -13,10 +13,12 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     @php $theme = session('theme', 'dark'); $locale = app()->getLocale(); $isRtl = $locale === 'ar'; @endphp
-    <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8">
+    <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8 animate-scale-in">
         <div class="text-center mb-8">
-            <img src="/logo.jpg" alt="خولة بنت الأزور" class="mx-auto mb-4 w-20 h-20 rounded-2xl object-cover shadow-lg shadow-blue-500/25">
-            <h1 class="text-3xl font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
+            <div class="animate-float inline-block mb-4 rounded-2xl p-1 bg-gradient-to-br from-blue-500/40 via-purple-500/30 to-pink-500/30">
+                <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-blue-500/25">
+            </div>
+            <h1 class="text-3xl font-bold gradient-text">خولة بنت الأزور</h1>
             <p class="text-[var(--text-muted)] mt-1 text-sm">@lang('messages.School Management System')</p>
         </div>
 
@@ -47,10 +49,10 @@
                 @error('password')<p class="text-red-400 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
             <div class="flex gap-3">
-                <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-2.5 rounded-xl transition shadow-lg shadow-blue-600/20">
+                <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] btn-shine">
                     @lang('messages.Login')
                 </button>
-                <a href="{{ route('register') }}" class="flex-1 text-center bg-[var(--bg-hover)] hover:bg-[var(--border-hover)] border border-[var(--border-input)] text-[var(--text-primary)] font-semibold py-2.5 rounded-xl transition">
+                <a href="{{ route('register') }}" class="flex-1 text-center bg-[var(--bg-hover)] hover:bg-[var(--border-hover)] border border-[var(--border-input)] text-[var(--text-primary)] font-semibold py-2.5 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
                     @lang('messages.Sign Up')
                 </a>
             </div>
@@ -62,11 +64,11 @@
         </div>
 
         <div class="space-y-3">
-            <a href="{{ route('teacher.login') }}" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-600/80 to-emerald-700/80 hover:from-emerald-500/80 hover:to-emerald-600/80 text-white font-medium py-2.5 rounded-xl transition text-sm">
+            <a href="{{ route('teacher.login') }}" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-600/80 to-teal-600/80 hover:from-emerald-500/80 hover:to-teal-500/80 text-white font-medium py-2.5 rounded-xl transition-all duration-200 text-sm hover:scale-[1.02] active:scale-[0.98] hover:shadow-lg hover:shadow-emerald-500/20">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
                 @lang('messages.Teacher Login')
             </a>
-            <a href="{{ route('student.login') }}" class="flex items-center justify-center gap-2 w-full bg-[var(--bg-hover)] hover:bg-[var(--border-hover)] border border-[var(--border-input)] text-[var(--text-label)] font-medium py-2.5 rounded-xl transition text-sm">
+            <a href="{{ route('student.login') }}" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-purple-600/60 to-pink-600/60 hover:from-purple-500/60 hover:to-pink-500/60 text-white font-medium py-2.5 rounded-xl transition-all duration-200 text-sm hover:scale-[1.02] active:scale-[0.98] hover:shadow-lg hover:shadow-purple-500/20">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
                 @lang('messages.Student Login')
             </a>

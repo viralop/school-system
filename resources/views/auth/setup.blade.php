@@ -13,10 +13,12 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     @php $theme = session('theme', 'dark'); $locale = app()->getLocale(); $isRtl = $locale === 'ar'; @endphp
-    <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8">
+    <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8 animate-scale-in">
         <div class="text-center mb-8">
-            <img src="/logo.jpg" alt="خولة بنت الأزور" class="mx-auto mb-4 w-20 h-20 rounded-2xl object-cover shadow-lg shadow-blue-500/25">
-            <h1 class="text-3xl font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
+            <div class="animate-float inline-block mb-4 rounded-2xl p-1 bg-gradient-to-br from-blue-500/40 via-purple-500/30 to-pink-500/30">
+                <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-blue-500/25">
+            </div>
+            <h1 class="text-3xl font-bold gradient-text">خولة بنت الأزور</h1>
             <p class="text-[var(--text-muted)] mt-1 text-sm">{{ __('messages.Supervisor Setup') }}</p>
         </div>
 
@@ -73,7 +75,7 @@
                         required>
                 </div>
             </div>
-            <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-2.5 rounded-xl transition shadow-lg shadow-blue-600/20">
+            <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-blue-600/20 hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] btn-shine">
                 {{ __('messages.Create Supervisor Account') }}
             </button>
         </form>

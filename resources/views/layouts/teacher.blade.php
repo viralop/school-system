@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/app.css">
     <style>
-        .sidebar-link.active { background: rgba(59,130,246,0.15); color: var(--text-primary); font-weight: 500; }
+        .sidebar-link.active { background: transparent; color: var(--text-primary); font-weight: 500; }
         .sidebar-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
         .sidebar-nav { scrollbar-width: none; -ms-overflow-style: none; }
@@ -17,6 +17,11 @@
             #sidebar { width: 0; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
             #sidebar.active { width: 17rem; }
         }
+        .sidebar-link svg { transition: transform 0.2s ease; }
+        .sidebar-link:hover svg { transform: scale(1.1); }
+        .sidebar-panel { transition: box-shadow 0.3s ease; }
+        .sidebar-panel:hover { box-shadow: 4px 0 24px -4px rgba(52, 211, 153, 0.08); }
+        .logo-pulse { animation: pulseGlow 4s ease-in-out infinite; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -39,10 +44,12 @@
             <div class="p-5 border-b border-[var(--border-main)]">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-12 h-12 rounded-xl object-cover shadow-md">
+                        <div class="logo-pulse rounded-xl p-0.5 bg-gradient-to-br from-emerald-500/40 via-teal-500/30 to-blue-500/30">
+                            <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-12 h-12 rounded-xl object-cover shadow-lg">
+                        </div>
                         <div>
-                            <h1 class="text-lg font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
-                            <span class="text-emerald-400 text-xs">{{ __('messages.Teacher') }}</span>
+                            <h1 class="text-lg font-bold gradient-text">خولة بنت الأزور</h1>
+                            <span class="text-xs font-medium bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">{{ __('messages.Teacher') }}</span>
                         </div>
                     </div>
                     <button onclick="closeSidebar()" class="md:hidden p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-hover)] transition">
@@ -89,7 +96,7 @@
                 </div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full text-[var(--text-tertiary)] hover:text-red-400 text-sm flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-red-500/10 transition">
+                    <button type="submit" class="w-full text-[var(--text-tertiary)] hover:text-red-400 text-sm flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-red-500/10 transition-all duration-200 hover:translate-x-1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg>
                         {{ __('messages.Logout') }}
                     </button>
@@ -103,8 +110,10 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                 </button>
                 <div class="flex items-center gap-2">
-                    <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-10 h-10 rounded-lg object-cover">
-                    <span class="text-sm font-bold text-[var(--text-primary)]">خولة بنت الأزور</span>
+                    <div class="rounded-lg p-0.5 bg-gradient-to-br from-emerald-500/30 via-teal-500/20 to-blue-500/20">
+                        <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-10 h-10 rounded-lg object-cover">
+                    </div>
+                    <span class="text-sm font-bold gradient-text">خولة بنت الأزور</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <a href="{{ url()->current() }}?lang={{ $locale === 'ar' ? 'en' : 'ar' }}" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] text-xs px-2 py-1 rounded-lg border border-[var(--border-main)] transition font-medium">{{ $locale === 'ar' ? 'EN' : 'عربي' }}</a>
@@ -113,13 +122,13 @@
 
             <div class="p-4 md:p-8">
                 @if(session('success'))
-                    <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl mb-4 md:mb-6 flex items-center gap-2 text-sm">
+                    <div class="animate-slide-in-right bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl mb-4 md:mb-6 flex items-center gap-2 text-sm hover-glow">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
                         {{ session('success') }}
                     </div>
                 @endif
                 @if($errors->any())
-                    <div class="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-4 md:mb-6 flex items-center gap-2 text-sm">
+                    <div class="animate-slide-in-right bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-4 md:mb-6 flex items-center gap-2 text-sm hover-glow">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
                         {{ $errors->first() }}
                     </div>
@@ -141,6 +150,16 @@
             document.getElementById('sidebar-overlay').classList.remove('active');
             document.body.style.overflow = '';
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.animate-slide-in-right').forEach(function(el) {
+                setTimeout(function() {
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateX(20px)';
+                    setTimeout(function() { el.remove(); }, 500);
+                }, 4000);
+            });
+        });
     </script>
     @stack('scripts')
 </body>

@@ -12,10 +12,12 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     @php $theme = session('theme', 'dark'); @endphp
-    <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8">
+    <div class="glass rounded-2xl shadow-2xl w-full max-w-md p-8 animate-scale-in">
         <div class="text-center mb-8">
-            <img src="/logo.jpg" alt="خولة بنت الأزور" class="mx-auto mb-4 w-20 h-20 rounded-2xl object-cover shadow-lg shadow-blue-500/25">
-            <h1 class="text-3xl font-bold text-[var(--text-primary)]">خولة بنت الأزور</h1>
+            <div class="animate-float inline-block mb-4 rounded-2xl p-1 bg-gradient-to-br from-emerald-500/40 via-teal-500/30 to-blue-500/30">
+                <img src="/logo.jpg" alt="خولة بنت الأزور" class="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-emerald-500/25">
+            </div>
+            <h1 class="text-3xl font-bold gradient-text">خولة بنت الأزور</h1>
             <p class="text-[var(--text-muted)] mt-1 text-sm">@lang('messages.Teacher Portal')</p>
             <p class="text-[var(--text-secondary)] text-xs mt-2">@lang('messages.Enter your teacher ID to access your dashboard.')</p>
         </div>
@@ -40,7 +42,7 @@
             </div>
 
             <button type="submit"
-                class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-2.5 rounded-xl transition shadow-lg shadow-blue-600/20">
+                class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-600/20 hover:shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98] btn-shine">
                 @lang('messages.Access My Dashboard')
             </button>
         </form>
