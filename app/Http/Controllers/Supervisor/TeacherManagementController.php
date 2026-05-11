@@ -74,6 +74,25 @@ class TeacherManagementController extends Controller
         return back()->with('success', "Teacher {$teacher->name} has been unfrozen.");
     }
 
+    public function update(Request $request, User $teacher)
+    {
+        if (! $teacher->isTeacher()) {
+            return back()->withErrors(['error' => 'User is not a teacher.']);
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'teacher_id' => ['required', 'string', 'min:2', 'unique:users,teacher_id,' . $teacher->id],
+        ]);
+
+        $teacher->update([
+            'name' => $request->input('name'),
+            'teacher_id' => $request->input('teacher_id'),
+        ]);
+
+        return back()->with('success', "Teacher {$teacher->name} updated successfully.");
+    }
+
     public function destroy(User $teacher)
     {
         if (! $teacher->isTeacher()) {

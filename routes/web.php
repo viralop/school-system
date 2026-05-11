@@ -167,6 +167,7 @@ Route::middleware(['auth', 'role:supervisor'])->group(function () {
         Route::post('/', [TeacherManagementController::class, 'store'])->name('store');
         Route::patch('/{teacher}/freeze', [TeacherManagementController::class, 'freeze'])->name('freeze');
         Route::patch('/{teacher}/unfreeze', [TeacherManagementController::class, 'unfreeze'])->name('unfreeze');
+        Route::put('/{teacher}', [TeacherManagementController::class, 'update'])->name('update');
         Route::delete('/{teacher}', [TeacherManagementController::class, 'destroy'])->name('destroy');
     });
 

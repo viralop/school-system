@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" data-theme="{{ session('theme', 'dark') }}">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" data-theme="{{ session('theme', 'light') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 <body class="min-h-screen">
     @php
         $locale = app()->getLocale();
-        $theme = session('theme', 'dark');
+        $theme = session('theme', 'light');
         $student = \App\Models\Student::with(['level', 'section'])->find(session('student_id'));
         $termGrades = \App\Models\Grade::where('student_id', $student->id)
             ->where('status', 'approved')
