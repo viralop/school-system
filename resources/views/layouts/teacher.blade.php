@@ -24,7 +24,7 @@
         .logo-pulse { animation: pulseGlow 4s ease-in-out infinite; }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen system-theme">
     @php
         $locale = app()->getLocale();
         $theme = session('theme', 'light');

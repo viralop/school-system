@@ -11,8 +11,7 @@
         $pendingGrades = \App\Models\Grade::where('status', 'pending')->count();
     @endphp
 
-    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-8rem)] relative" style="background-image:url('/logo-removebg-preview.png');background-repeat:no-repeat;background-position:center;background-size:750px;opacity:0.92;">
-        <div class="absolute inset-0 bg-[var(--bg-primary)] opacity-85 -z-10"></div>
+    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-8rem)] relative">
         <div class="w-full max-w-5xl space-y-4 md:space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
                 <a href="{{ route('supervisor.students.index') }}" class="dashboard-card block bg-[var(--bg-card)] rounded-2xl border border-[var(--border-main)] overflow-hidden no-underline group animate-fade-in-up stagger-1">

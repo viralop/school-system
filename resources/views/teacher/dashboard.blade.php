@@ -11,8 +11,7 @@
         $approvedGrades = \App\Models\Grade::where('entered_by', $teacher->id)->where('status', 'approved')->count();
     @endphp
 
-    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-8rem)] relative" style="background-image:url('/logo-removebg-preview.png');background-repeat:no-repeat;background-position:center;background-size:750px;opacity:0.92;">
-        <div class="absolute inset-0 bg-[var(--bg-primary)] opacity-85 -z-10"></div>
+    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-8rem)] relative">
         <div class="w-full max-w-3xl space-y-6">
             <div class="grid grid-cols-2 gap-3 md:gap-6">
                 <a href="{{ route('teacher.grades') }}" class="block bg-[var(--bg-card)] rounded-xl border border-[var(--border-main)] overflow-hidden hover:shadow-lg transition-all duration-300 no-underline group">

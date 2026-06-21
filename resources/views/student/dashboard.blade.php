@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/app.css">
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen system-theme">
     @php
         $locale = app()->getLocale();
         $theme = session('theme', 'light');
